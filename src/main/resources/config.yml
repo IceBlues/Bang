@@ -1,0 +1,7 @@
+#Help command
+helpCommand:
+  - '[Bang] Help:'
+  - '/bang fuck <player> - adds a player mother to cemetery'
+  - '/bang back <fuck/magic> <player> - your bout, select a player card and pull his/her mother back'
+  - '/bang list - lists the mother fucker players'
+  - '/bang help - shows this help'

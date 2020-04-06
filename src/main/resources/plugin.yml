@@ -1,0 +1,11 @@
+name: Bang
+version: 1.0.2
+main: org.gbcraft.bang.Bang
+api-version: 1.13
+authors: [IceBlues7]
+description: Fucking mother fucker boys
+
+commands:
+  bang:
+    description: Bang! ovo!
+
