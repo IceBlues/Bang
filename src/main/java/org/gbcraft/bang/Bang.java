@@ -20,10 +20,10 @@ public final class Bang extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        List
+        saveDefaultConfig();
+
         Bukkit.getPluginManager().registerEvents(this, this);
         MFCommandExecutor executor = new MFCommandExecutor(this);
-        saveDefaultConfig();
         Bukkit.getPluginCommand("bang").setExecutor(executor);
         Bukkit.getPluginCommand("bang").setTabCompleter(executor);
     }

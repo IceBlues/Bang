@@ -35,7 +35,7 @@ public class MFCommandExecutor implements TabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length >= 2) {
-            if (args[0].equalsIgnoreCase("back")) {
+            if (args.length == 2 && args[0].equalsIgnoreCase("back")) {
                 return Arrays.asList("fuck", "magic");
             }
 
