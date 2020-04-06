@@ -6,9 +6,6 @@ import org.gbcraft.bang.Bang;
 public class BackCommand extends MFCommand {
     public BackCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
-        if(args.length >= 3) {
-            args[2] = args[2].toLowerCase();
-        }
     }
 
     @Override
