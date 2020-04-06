@@ -1,5 +1,6 @@
 package org.gbcraft.bang.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.gbcraft.bang.Bang;
 
@@ -11,9 +12,8 @@ public class HelpCommand extends MFCommand {
     @Override
     public boolean run() {
         if (sender.hasPermission("bang.base")) {
-            sender.sendMessage(plugin.getConfig().getStringList("helpCommand").toString());
             plugin.getConfig().getStringList("helpCommand")
-                    .forEach(str -> sender.sendMessage(str));
+                    .forEach(str -> sender.sendMessage(ChatColor.translateAlternateColorCodes('&', str)));
         } else {
             sender.sendMessage("no-permission");
         }
