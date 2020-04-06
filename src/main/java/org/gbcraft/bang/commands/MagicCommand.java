@@ -15,6 +15,9 @@ public class MagicCommand extends MFCommand {
     private final static Map<String, OfflinePlayer> containers = new HashMap<>();
     public MagicCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
+        if(args.length >= 2) {
+            args[1] = args[1].toLowerCase();
+        }
     }
 
     @Override

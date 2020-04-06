@@ -15,7 +15,10 @@ public class OfflinePlayersConfig {
         playerMap = new HashMap<>();
         OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
         for (OfflinePlayer offlinePlayer : offlinePlayers) {
-            playerMap.put(offlinePlayer.getName(), offlinePlayer);
+            String name = offlinePlayer.getName();
+            if(null != name && !name.equals("")) {
+                playerMap.put(name.toLowerCase(), offlinePlayer);
+            }
         }
     }
 
