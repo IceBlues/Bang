@@ -18,6 +18,9 @@ public class BackCommand extends MFCommand {
             else if(args[1].equalsIgnoreCase("magic")){
                 MagicCommand.remove(args[2]);
             }
+            else if(args[1].equalsIgnoreCase("bless")){
+                BlessCommand.remove(args[2]);
+            }
             else{
                 msg = "Command Error!";
             }

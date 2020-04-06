@@ -5,10 +5,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.gbcraft.bang.commands.BlessCommand;
 import org.gbcraft.bang.commands.FuckCommand;
 import org.gbcraft.bang.commands.MFCommandExecutor;
 import org.gbcraft.bang.commands.MagicCommand;
@@ -33,33 +35,57 @@ public final class Bang extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         boolean isFuck = FuckCommand.isContain(player.getName());
         boolean isMagic = MagicCommand.isContain(player.getName());
+        boolean isBless = BlessCommand.isContain(player.getName());
         if (isFuck) {
             player.setHealth(0);
             player.sendTitle(ChatColor.translateAlternateColorCodes('&', "&cFucking bad guys!"), "Fuck!", 10, 70, 20);
         }
 
         if (isMagic) {
-            List<PotionEffect> magicList = new ArrayList<>();
-            Integer maxTime = Integer.MAX_VALUE;
-
             if (!player.hasPotionEffect(PotionEffectType.UNLUCK)) {
+                List<PotionEffect> magicList = new ArrayList<>();
+                int maxTime = Integer.MAX_VALUE;
                 player.sendTitle(ChatColor.translateAlternateColorCodes('&', "&cEnjoying this Feeling!"), "Evade!", 10, 70, 20);
+
+                //霉运
+                magicList.add(new PotionEffect(PotionEffectType.UNLUCK, maxTime, 4));
+                //恶心
+                magicList.add(new PotionEffect(PotionEffectType.CONFUSION, maxTime, 4));
+                //缓慢
+                magicList.add(new PotionEffect(PotionEffectType.SLOW, maxTime, 4));
+                //挖掘疲劳
+                magicList.add(new PotionEffect(PotionEffectType.SLOW_DIGGING, maxTime, 4));
+                //失明
+                /*            magicList.add(new PotionEffect(PotionEffectType.BLINDNESS, maxTime, 4));*/
+                //虚弱
+                magicList.add(new PotionEffect(PotionEffectType.WEAKNESS, maxTime, 4));
+
+                player.addPotionEffects(magicList);
+
             }
+        }
 
-            //霉运
-            magicList.add(new PotionEffect(PotionEffectType.UNLUCK, maxTime, 4));
-            //恶心
-            magicList.add(new PotionEffect(PotionEffectType.CONFUSION, maxTime, 4));
-            //缓慢
-            magicList.add(new PotionEffect(PotionEffectType.SLOW, maxTime, 4));
-            //挖掘疲劳
-            magicList.add(new PotionEffect(PotionEffectType.SLOW_DIGGING, maxTime, 4));
-            //失明
-            /*            magicList.add(new PotionEffect(PotionEffectType.BLINDNESS, maxTime, 4));*/
-            //虚弱
-            magicList.add(new PotionEffect(PotionEffectType.WEAKNESS, maxTime, 4));
+        if(isBless){
+            if (!player.hasPotionEffect(PotionEffectType.SATURATION)) {
+                List<PotionEffect> blessList = new ArrayList<>();
+                int maxTime = Integer.MAX_VALUE;
+                //饱和
+                blessList.add(new PotionEffect(PotionEffectType.SATURATION, maxTime, 4));
+                //海豚恩惠
+                blessList.add(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, maxTime, 4));
+                //抗火
+                blessList.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, maxTime, 4));
+                //抗性
+                blessList.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, maxTime, 4));
+                //生命恢复
+                blessList.add(new PotionEffect(PotionEffectType.REGENERATION, maxTime, 4));
+                //力量
+                blessList.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, maxTime, 4));
+                //夜视
+                blessList.add(new PotionEffect(PotionEffectType.NIGHT_VISION, maxTime, 0));
 
-            player.addPotionEffects(magicList);
+                player.addPotionEffects(blessList);
+            }
         }
     }
 
