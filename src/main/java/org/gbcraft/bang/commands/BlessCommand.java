@@ -16,6 +16,9 @@ public class BlessCommand extends MFCommand {
 
     public BlessCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
+        if(args.length >= 2){
+            args[1] = args[1].toLowerCase();
+        }
     }
 
     @Override

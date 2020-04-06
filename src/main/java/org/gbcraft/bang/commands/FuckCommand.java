@@ -13,6 +13,9 @@ public class FuckCommand extends MFCommand {
 
     public FuckCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
+        if(args.length >= 2){
+            args[1] = args[1].toLowerCase();
+        }
     }
 
     @Override
