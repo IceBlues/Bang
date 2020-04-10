@@ -10,10 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.gbcraft.bang.commands.BlessCommand;
-import org.gbcraft.bang.commands.FuckCommand;
-import org.gbcraft.bang.commands.MFCommandExecutor;
-import org.gbcraft.bang.commands.MagicCommand;
+import org.gbcraft.bang.commands.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -42,6 +39,7 @@ public final class Bang extends JavaPlugin implements Listener {
         boolean isFuck = FuckCommand.isContain(player.getName().toLowerCase());
         boolean isMagic = MagicCommand.isContain(player.getName().toLowerCase());
         boolean isBless = BlessCommand.isContain(player.getName().toLowerCase());
+        boolean isSupajp = SupajpCommand.isContain(player.getName().toLowerCase());
         if (isFuck) {
             player.setHealth(0);
             player.sendTitle(ChatColor.translateAlternateColorCodes('&', "&cFucking bad guys!"), "Fuck!", 10, 70, 20);
@@ -67,7 +65,7 @@ public final class Bang extends JavaPlugin implements Listener {
                 magicList.add(new PotionEffect(PotionEffectType.WEAKNESS, maxTime, 4));
 
                 player.addPotionEffects(magicList);
-
+                player.setWalkSpeed(-0.1f);
             }
         }
 
@@ -92,6 +90,12 @@ public final class Bang extends JavaPlugin implements Listener {
 
                 player.addPotionEffects(blessList);
             }
+        }
+
+        if(isSupajp){
+            player.setFlying(true);
+            player.setFlySpeed(0.6f);
+            player.setWalkSpeed(0.3f);
         }
     }
 

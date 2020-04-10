@@ -24,6 +24,12 @@ public class BackCommand extends MFCommand {
             else if(args[1].equalsIgnoreCase("bless")){
                 BlessCommand.remove(args[2]);
             }
+            else if(args[1].equalsIgnoreCase("supajp")){
+                boolean res = SupajpCommand.remove(args[2]);
+                if (!res){
+                    sender.sendMessage("玩家不在线!");
+                }
+            }
             else{
                 msg = "Command Error!";
             }

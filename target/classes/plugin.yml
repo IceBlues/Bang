@@ -1,5 +1,5 @@
 name: Bang
-version: 1.0.4
+version: 1.0.3
 main: org.gbcraft.bang.Bang
 api-version: 1.13
 authors: [IceBlues7]
