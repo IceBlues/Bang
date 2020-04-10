@@ -102,7 +102,6 @@ public final class Bang extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
-        System.out.println(OfflinePlayersConfig.getPlayerMap().keySet());
         Player player = event.getPlayer();
         if(!OfflinePlayersConfig.isContain(player.getName())){
             OfflinePlayersConfig.append(player.getName(), player);
