@@ -93,10 +93,11 @@ public final class Bang extends JavaPlugin implements Listener {
             }
         }
 
-        if(isSupajp && player.getFlySpeed()!=0.3f){
+        if(isSupajp && !player.hasPotionEffect(PotionEffectType.SATURATION)){
             player.setAllowFlight(true);
             player.setWalkSpeed(0.6f);
             player.setFlySpeed(0.3f);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0));
         }
     }
 

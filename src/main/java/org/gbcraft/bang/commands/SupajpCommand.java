@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.gbcraft.bang.Bang;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 
@@ -44,6 +46,7 @@ public class SupajpCommand extends MFCommand{
             p.setAllowFlight(false);
             p.setWalkSpeed(0.2f);
             p.setFlySpeed(0.1f);
+            p.removePotionEffect(PotionEffectType.SATURATION);
 
             containers.remove(name);
             res = true;
