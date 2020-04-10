@@ -38,16 +38,18 @@ public class MFCommandExecutor implements TabExecutor {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length >= 2) {
-            if (args.length == 2 && args[0].equalsIgnoreCase("back")) {
-                return Arrays.stream(backCommands).filter(s -> s.startsWith(args[1])).collect(Collectors.toList());
-            }
+        if(!sender.hasPermission("bang.base"))
+            return null;
 
-            ArrayList<String> list = new ArrayList<>();
-            plugin.getServer().getOnlinePlayers().forEach(p -> list.add(p.getName()));
-            return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[1])).collect(Collectors.toList());
+        if (args.length == 1) {
+            return Arrays.stream(subCommands).filter(c -> c.startsWith(args[0])).collect(Collectors.toList());
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("back")) {
+            return Arrays.stream(backCommands).filter(c -> c.startsWith(args[1])).collect(Collectors.toList());
         }
 
-        return Arrays.stream(subCommands).filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
+        ArrayList<String> list = new ArrayList<>();
+        plugin.getServer().getOnlinePlayers().forEach(p -> list.add(p.getName()));
+        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[1])).collect(Collectors.toList());
     }
 }

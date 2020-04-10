@@ -6,11 +6,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.gbcraft.bang.commands.*;
+import org.gbcraft.bang.config.OfflinePlayersConfig;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,7 +67,6 @@ public final class Bang extends JavaPlugin implements Listener {
                 magicList.add(new PotionEffect(PotionEffectType.WEAKNESS, maxTime, 4));
 
                 player.addPotionEffects(magicList);
-                player.setWalkSpeed(-0.1f);
             }
         }
 
@@ -92,10 +93,19 @@ public final class Bang extends JavaPlugin implements Listener {
             }
         }
 
-        if(isSupajp){
-            player.setFlying(true);
-            player.setFlySpeed(0.6f);
-            player.setWalkSpeed(0.3f);
+        if(isSupajp && player.getFlySpeed()!=0.3f){
+            player.setAllowFlight(true);
+            player.setWalkSpeed(0.6f);
+            player.setFlySpeed(0.3f);
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event){
+        System.out.println(OfflinePlayersConfig.getPlayerMap().keySet());
+        Player player = event.getPlayer();
+        if(!OfflinePlayersConfig.isContain(player.getName())){
+            OfflinePlayersConfig.append(player.getName(), player);
         }
     }
 

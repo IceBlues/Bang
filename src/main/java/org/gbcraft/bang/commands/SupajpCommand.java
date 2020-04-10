@@ -14,6 +14,9 @@ public class SupajpCommand extends MFCommand{
     private final static Map<String, OfflinePlayer> containers = new HashMap<>();
     public SupajpCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
+        if(args.length >= 2){
+            args[1] = args[1].toLowerCase();
+        }
     }
 
     @Override
@@ -37,9 +40,11 @@ public class SupajpCommand extends MFCommand{
         Boolean res = false;
         Player p;
         if(null != containers.get(name) && null != (p=Bukkit.getPlayer(name))){
-            p.setFlying(false);
-            p.setWalkSpeed(0.1f);
-            p.setFlySpeed(0.2f);
+
+            p.setAllowFlight(false);
+            p.setWalkSpeed(0.2f);
+            p.setFlySpeed(0.1f);
+
             containers.remove(name);
             res = true;
         }

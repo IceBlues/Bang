@@ -2,6 +2,7 @@ package org.gbcraft.bang.config;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,17 @@ public class OfflinePlayersConfig {
                 playerMap.put(name.toLowerCase(), offlinePlayer);
             }
         }
+    }
+
+    public static void append(String name, Player player){
+        String tempName = name.toLowerCase();
+        if(null == config.playerMap.get(tempName)){
+            config.playerMap.put(name, player);
+        }
+    }
+
+    public static boolean isContain(String name){
+        return config.playerMap.get(name.toLowerCase())!=null;
     }
 
     public static Map<String, OfflinePlayer> getPlayerMap() {

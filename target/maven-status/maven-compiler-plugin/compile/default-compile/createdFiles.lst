@@ -4,6 +4,7 @@ org\gbcraft\bang\commands\MagicCommand.class
 org\gbcraft\bang\commands\ListCommand.class
 org\gbcraft\bang\commands\BackCommand.class
 org\gbcraft\bang\commands\FuckCommand.class
+org\gbcraft\bang\commands\SupajpCommand.class
 org\gbcraft\bang\Bang.class
 org\gbcraft\bang\commands\HelpCommand.class
 org\gbcraft\bang\commands\BlessCommand.class
