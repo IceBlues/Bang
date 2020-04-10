@@ -15,7 +15,13 @@ import org.gbcraft.bang.commands.FuckCommand;
 import org.gbcraft.bang.commands.MFCommandExecutor;
 import org.gbcraft.bang.commands.MagicCommand;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public final class Bang extends JavaPlugin implements Listener {
@@ -94,4 +100,37 @@ public final class Bang extends JavaPlugin implements Listener {
     public void onDisable() {
 
     }
+
+    /*public void logToFile(String msg) {
+        File dataFolder = getDataFolder();
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir();
+        }
+        File saveTo = new File(getDataFolder(), "log/log.txt");
+        try {
+            if(!saveTo.getParentFile().exists()){
+                saveTo.getParentFile().mkdirs();
+            }
+            if (!saveTo.exists()) {
+                saveTo.createNewFile();
+            }
+            FileWriter fw = new FileWriter(saveTo, true);
+            PrintWriter pw = new PrintWriter(fw);
+            msg = new SimpleDateFormat("[HH:mm:ss]: ").format(new Date()) + msg;
+            pw.println(msg);
+            pw.flush();
+            pw.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveLog() {
+        File log = new File(getDataFolder(), "log/log.txt");
+        File saveLog = new File(getDataFolder(), "log/log-"+new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date()) + ".txt");
+        if(log.exists()){
+            log.renameTo(saveLog);
+        }
+    }*/
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MFCommandExecutor implements TabExecutor {
     private final Bang plugin;
@@ -32,18 +33,20 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
+    private static String[] subCommands = {"fuck", "magic", "bless", "back", "list", "help"};
+    private static String[] backCommands = {"fuck", "magic", "bless"};
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length >= 2) {
             if (args.length == 2 && args[0].equalsIgnoreCase("back")) {
-                return Arrays.asList("fuck", "magic", "bless");
+                return Arrays.stream(backCommands).filter(s -> s.startsWith(args[1])).collect(Collectors.toList());
             }
 
             ArrayList<String> list = new ArrayList<>();
             plugin.getServer().getOnlinePlayers().forEach(p -> list.add(p.getName()));
-            return list;
+            return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[1])).collect(Collectors.toList());
         }
 
-        return Arrays.asList("fuck", "magic", "bless", "back", "list", "help");
+        return Arrays.stream(subCommands).filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
     }
 }
