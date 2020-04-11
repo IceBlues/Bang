@@ -14,13 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.gbcraft.bang.commands.*;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public final class Bang extends JavaPlugin implements Listener {

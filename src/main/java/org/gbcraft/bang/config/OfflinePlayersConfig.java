@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OfflinePlayersConfig {
-    private static OfflinePlayersConfig config = new OfflinePlayersConfig();
+    private static final OfflinePlayersConfig config = new OfflinePlayersConfig();
 
-    private Map<String, OfflinePlayer> playerMap;
+    private final Map<String, OfflinePlayer> playerMap;
 
     private OfflinePlayersConfig(){
         playerMap = new HashMap<>();
@@ -25,9 +25,7 @@ public class OfflinePlayersConfig {
 
     public static void append(String name, Player player){
         String tempName = name.toLowerCase();
-        if(null == config.playerMap.get(tempName)){
-            config.playerMap.put(name, player);
-        }
+        config.playerMap.putIfAbsent(tempName, player);
     }
 
     public static boolean isContain(String name){
