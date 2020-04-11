@@ -15,10 +15,7 @@ public class UglyfaceCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base")){
-            if (args.length < 2)
-                return true;
-
+        if(sender.hasPermission("bang.base") && args.length >= 2){
             Player player = Bukkit.getPlayer(args[1]);
             if (player != null) {
                 player.spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 1);

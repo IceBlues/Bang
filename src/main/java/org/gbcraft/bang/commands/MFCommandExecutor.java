@@ -33,8 +33,8 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static String[] subCommands = {"fuck", "magic", "bless", "supajp", "uglyface", "back", "list", "help"};
-    private static String[] backCommands = {"fuck", "magic", "bless", "supajp", "uglyface"};
+    private static String[] subCommands = {"fuck", "magic", "bless", "supajp", "uglyface", "back", "list", "reload", "help"};
+    private static String[] backCommands = {"fuck", "magic", "bless", "supajp"};
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
