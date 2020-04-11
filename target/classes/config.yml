@@ -8,3 +8,4 @@ helpCommand:
   - '&b/bang list&f lists the mother fucker players'
   - '&b/bang help&f shows this help'
   - '&b/bang supajp&f 3 times speed'
+warningMsg: ""

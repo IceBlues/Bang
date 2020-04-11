@@ -8,4 +8,5 @@ org\gbcraft\bang\commands\SupajpCommand.class
 org\gbcraft\bang\Bang.class
 org\gbcraft\bang\commands\HelpCommand.class
 org\gbcraft\bang\commands\BlessCommand.class
+org\gbcraft\bang\commands\UglyfaceCommand.class
 org\gbcraft\bang\commands\MFCommand.class
