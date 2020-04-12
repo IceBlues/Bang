@@ -11,9 +11,9 @@ public class ListCommand extends MFCommand{
     @Override
     public boolean run() {
         if(sender.hasPermission("bang.base")) {
-            sender.sendMessage("FuckList:\n" + FuckCommand.printContainers());
-            sender.sendMessage("MagicList:\n" + MagicCommand.printContainers());
-            sender.sendMessage("BlessList:\n" + BlessCommand.printContainers());
+            sender.sendMessage("FuckList:\n" + FuckCommand.printContainers() + "\n");
+            sender.sendMessage("MagicList:\n" + MagicCommand.printContainers() + "\n");
+            sender.sendMessage("BlessList:\n" + BlessCommand.printContainers() + "\n");
             sender.sendMessage("SupajpList:\n" + SupajpCommand.printContainers());
         }
         else{
