@@ -17,7 +17,7 @@ public class ListCommand extends MFCommand{
             sender.sendMessage("\n");
             sender.sendMessage("BlessList:\n" + BlessCommand.printContainers());
             sender.sendMessage("\n");
-            sender.sendMessage("SuperjpList:\n" + SupajpCommand.printContainers());
+            sender.sendMessage("SupajpList:\n" + SupajpCommand.printContainers());
         }
         return true;
     }

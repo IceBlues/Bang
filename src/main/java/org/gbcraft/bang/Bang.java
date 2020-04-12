@@ -32,10 +32,10 @@ public final class Bang extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        boolean isFuck = FuckCommand.isContain(player.getName().toLowerCase());
-        boolean isMagic = MagicCommand.isContain(player.getName().toLowerCase());
-        boolean isBless = BlessCommand.isContain(player.getName().toLowerCase());
-        boolean isSupajp = SupajpCommand.isContain(player.getName().toLowerCase());
+        boolean isFuck = FuckCommand.isContain(player.getName());
+        boolean isMagic = MagicCommand.isContain(player.getName());
+        boolean isBless = BlessCommand.isContain(player.getName());
+        boolean isSupajp = SupajpCommand.isContain(player.getName());
         if (isFuck) {
             player.setHealth(0);
             player.sendTitle(ChatColor.translateAlternateColorCodes('&', "&cFucking bad guys!"), "Fuck!", 10, 70, 20);

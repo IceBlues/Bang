@@ -28,11 +28,11 @@ public class OfflinePlayersConfig {
         config.playerMap.putIfAbsent(tempName, player);
     }
 
-    public static boolean isContain(String name){
-        return config.playerMap.get(name.toLowerCase())!=null;
+    public static OfflinePlayer get(String name){
+        return config.playerMap.get(name.toLowerCase());
     }
 
-    public static Map<String, OfflinePlayer> getPlayerMap() {
-        return config.playerMap;
+    public static boolean isContain(String name){
+        return config.playerMap.get(name.toLowerCase())!=null;
     }
 }

@@ -16,18 +16,15 @@ public class SupajpCommand extends MFCommand{
     private final static Map<String, OfflinePlayer> containers = new HashMap<>();
     public SupajpCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
-        if(args.length >= 2){
-            args[1] = args[1].toLowerCase();
-        }
     }
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base")) {
-            OfflinePlayer player = OfflinePlayersConfig.getPlayerMap().get(args[1]);
+        if(sender.hasPermission("bang.base") && args.length >= 2) {
+            OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
 
             if(null != player) {
-                containers.put(args[1], player);
+                containers.put(player.getName(), player);
                 sender.sendMessage("添加成功");
             }
         }
@@ -53,6 +50,10 @@ public class SupajpCommand extends MFCommand{
         }
         return res;
 
+    }
+
+    public static String[] getKeyArray(){
+        return containers.keySet().toArray(new String[0]);
     }
 
     public static String printContainers(){

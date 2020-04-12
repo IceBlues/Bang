@@ -14,8 +14,7 @@ public class TeleportCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base")){
-            if(args.length >= 2){
+        if(sender.hasPermission("bang.base") && args.length >= 2){
                 if(args.length == 2 && sender instanceof Player){
                     Player to = Bukkit.getPlayer(args[1]);
                     if(null != to) {
@@ -29,7 +28,6 @@ public class TeleportCommand extends MFCommand {
                         from.teleport(to.getLocation());
                     }
                 }
-            }
         }
         return true;
     }

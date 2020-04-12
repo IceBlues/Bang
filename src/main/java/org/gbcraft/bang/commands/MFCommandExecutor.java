@@ -33,7 +33,7 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static String[] subCommands = {"fuck", "magic", "bless", "supajp", "uglyface", "back","teleport", "list", "reload", "help"};
+    private static String[] subCommands = {"fuck", "magic", "bless", "supajp", "uglyface", "back", "teleport", "list", "reload", "help"};
     private static String[] backCommands = {"fuck", "magic", "bless", "supajp"};
 
     @Override
@@ -44,12 +44,36 @@ public class MFCommandExecutor implements TabExecutor {
         if (args.length == 1) {
             return Arrays.stream(subCommands).filter(c -> c.startsWith(args[0])).collect(Collectors.toList());
         }
-        if (args.length == 2 && args[0].equalsIgnoreCase("back")) {
-            return Arrays.stream(backCommands).filter(c -> c.startsWith(args[1])).collect(Collectors.toList());
+        //if have sub command and equals back
+        if (args.length > 0 && args[0].equalsIgnoreCase("back")) {
+            //if want input back command name
+            if (args.length == 2) {
+                return Arrays.stream(backCommands).filter(c -> c.startsWith(args[1])).collect(Collectors.toList());
+            }
+            //bigger than 2
+            else{
+                List<String> res = null;
+                String backCommand = args[1];
+                switch (backCommand){
+                    case "fuck":
+                        res = Arrays.stream(FuckCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                        break;
+                    case "magic":
+                        res = Arrays.stream(MagicCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                        break;
+                    case "bless":
+                        res = Arrays.stream(BlessCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                        break;
+                    case "supajp":
+                        res = Arrays.stream(SupajpCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                        break;
+                }
+                return res;
+            }
         }
 
         ArrayList<String> list = new ArrayList<>();
         plugin.getServer().getOnlinePlayers().forEach(p -> list.add(p.getName()));
-        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[args.length-1])).collect(Collectors.toList());
+        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[args.length - 1])).collect(Collectors.toList());
     }
 }
