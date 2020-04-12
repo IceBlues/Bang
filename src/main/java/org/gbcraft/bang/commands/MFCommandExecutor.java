@@ -33,7 +33,7 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static String[] subCommands = {"fuck", "magic", "bless", "supajp", "uglyface", "back", "list", "reload", "help"};
+    private static String[] subCommands = {"fuck", "magic", "bless", "supajp", "uglyface", "back","teleport", "list", "reload", "help"};
     private static String[] backCommands = {"fuck", "magic", "bless", "supajp"};
 
     @Override
@@ -50,6 +50,6 @@ public class MFCommandExecutor implements TabExecutor {
 
         ArrayList<String> list = new ArrayList<>();
         plugin.getServer().getOnlinePlayers().forEach(p -> list.add(p.getName()));
-        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[1])).collect(Collectors.toList());
+        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[args.length-1])).collect(Collectors.toList());
     }
 }

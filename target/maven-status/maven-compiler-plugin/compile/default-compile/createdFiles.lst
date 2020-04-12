@@ -1,3 +1,4 @@
+org\gbcraft\bang\commands\ReloadCommand.class
 org\gbcraft\bang\config\OfflinePlayersConfig.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
 org\gbcraft\bang\commands\MagicCommand.class
@@ -10,3 +11,4 @@ org\gbcraft\bang\commands\HelpCommand.class
 org\gbcraft\bang\commands\BlessCommand.class
 org\gbcraft\bang\commands\UglyfaceCommand.class
 org\gbcraft\bang\commands\MFCommand.class
+org\gbcraft\bang\commands\TeleportCommand.class

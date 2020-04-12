@@ -6,6 +6,7 @@ helpCommand:
   - '&b/bang bless&f <player> - bless a player with 7 god bless'
   - '&b/bang supajp&f - 3 times speed'
   - '&b/bang uglyface&f <player> - show elder guardian ugly face and warning message'
+  - '&b/bang teleport <player1> [player2]&f - teleport player A to Player B'
   - '&b/bang back&f <fuck/magic> <player> - your bout, select a player card and pull to mother back'
   - '&b/bang list&f - lists the mother fucker players'
   - '&b/bang reload&f - reload bang config file'
