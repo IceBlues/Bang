@@ -2,10 +2,10 @@ package org.gbcraft.bang;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +16,7 @@ import org.gbcraft.bang.config.OfflinePlayersConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Bang extends JavaPlugin implements Listener {
 
@@ -87,7 +88,7 @@ public final class Bang extends JavaPlugin implements Listener {
             }
         }
 
-        if(isSupajp && !(player.getWalkSpeed()!=0.6f)){
+        if(isSupajp && player.getWalkSpeed()!=0.6f){
             player.setAllowFlight(true);
             player.setWalkSpeed(0.6f);
             player.setFlySpeed(0.3f);
@@ -98,8 +99,31 @@ public final class Bang extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event){
         Player player = event.getPlayer();
+        // player first join, append to offline player map
         if(!OfflinePlayersConfig.isContain(player.getName())){
             OfflinePlayersConfig.append(player.getName(), player);
+        }
+
+        /*Player has been moved but have buff*/
+        if(!MagicCommand.isContain(player.getName()) && player.hasPotionEffect(PotionEffectType.UNLUCK)){
+            for(PotionEffect effect : player.getActivePotionEffects())
+            {
+                player.removePotionEffect(effect.getType());
+            }
+        }
+
+        if(!BlessCommand.isContain(player.getName()) && player.hasPotionEffect(PotionEffectType.SATURATION)){
+            for(PotionEffect effect : player.getActivePotionEffects())
+            {
+                player.removePotionEffect(effect.getType());
+            }
+        }
+
+        if(!SupajpCommand.isContain(player.getName()) && player.getWalkSpeed()!=0.6f){
+            player.setAllowFlight(false);
+            player.setWalkSpeed(0.2f);
+            player.setFlySpeed(0.1f);
+            player.removePotionEffect(PotionEffectType.SATURATION);
         }
     }
 
@@ -107,6 +131,10 @@ public final class Bang extends JavaPlugin implements Listener {
     @Override
     public void onDisable() {
 
+    }
+
+    public void sendMessage(CommandSender sender, String node){
+        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig().getString(node))));
     }
 
     /*public void logToFile(String msg) {

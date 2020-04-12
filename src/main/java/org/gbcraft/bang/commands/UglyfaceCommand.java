@@ -15,17 +15,29 @@ public class UglyfaceCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base") && args.length >= 2){
-            Player player = Bukkit.getPlayer(args[1]);
-            if (player != null) {
-                player.spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 1);
-                player.playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 1F, 0F);
-                String msg = plugin.getConfig().getString("warningMsg");
-                if (msg != null && !"".equals(msg)) {
-                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
-                }
+        if(sender.hasPermission("bang.base")){
+            if(args.length >= 2) {
+                Player player = Bukkit.getPlayer(args[1]);
+                if (player != null) {
+                    player.spawnParticle(Particle.MOB_APPEARANCE, player.getLocation(), 1);
+                    player.playSound(player.getLocation(), Sound.ENTITY_ELDER_GUARDIAN_CURSE, 1F, 0F);
+                    String msg = plugin.getConfig().getString("warningMsg");
+                    if (msg != null && !"".equals(msg)) {
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', msg));
+                    }
 
+                    plugin.sendMessage(sender, "info.uglyface.success");
+                }
+                else{
+                    plugin.sendMessage(sender, "info.player.no-found");
+                }
             }
+            else {
+                plugin.sendMessage(sender, "info.command.teleport");
+            }
+        }
+        else{
+            plugin.sendMessage(sender, "info.permission.no");
         }
 
         return true;

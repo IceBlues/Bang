@@ -10,28 +10,38 @@ public class BackCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base") && args.length >= 3) {
-            String msg = "取消执行成功";
-            if(args[1].equalsIgnoreCase("fuck")) {
-                FuckCommand.remove(args[2]);
-            }
-            else if(args[1].equalsIgnoreCase("magic")){
-                MagicCommand.remove(args[2]);
-            }
-            else if(args[1].equalsIgnoreCase("bless")){
-                BlessCommand.remove(args[2]);
-            }
-            else if(args[1].equalsIgnoreCase("supajp")){
-                boolean res = SupajpCommand.remove(args[2]);
-                if (!res){
-                    sender.sendMessage("玩家不在线!");
+        if (sender.hasPermission("bang.base")) {
+            if (args.length >= 3) {
+                String node;
+                if (args[1].equalsIgnoreCase("fuck")) {
+                    node = FuckCommand.remove(args[2]);
                 }
+                else if (args[1].equalsIgnoreCase("magic")) {
+                    node = MagicCommand.remove(args[2]);
+                }
+                else if (args[1].equalsIgnoreCase("bless")) {
+                    node = BlessCommand.remove(args[2]);
+                }
+                else if (args[1].equalsIgnoreCase("supajp")) {
+                    node = SupajpCommand.remove(args[2]);
+                }
+                else if (args[1].equalsIgnoreCase("all")) {
+                    FuckCommand.remove(args[2]);
+                    MagicCommand.remove(args[2]);
+                    BlessCommand.remove(args[2]);
+                    SupajpCommand.remove(args[2]);
+                    node = "info.remove.success";
+                }
+                else{
+                    node = "info.command.back";
+                }
+
+                plugin.sendMessage(sender, node);
             }
-            else{
-                msg = "Command Error!";
+            else {
+                plugin.sendMessage(sender, "info.command.back");
             }
 
-            sender.sendMessage(msg);
 
         }
         return true;

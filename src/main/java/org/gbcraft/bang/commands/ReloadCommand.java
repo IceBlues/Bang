@@ -13,6 +13,10 @@ public class ReloadCommand extends MFCommand {
         if(sender.hasPermission("bang.base")){
             plugin.saveDefaultConfig();
             plugin.reloadConfig();
+            plugin.sendMessage(sender, "info.reload.success");
+        }
+        else{
+            plugin.sendMessage(sender, "info.permission.no");
         }
 
         return true;

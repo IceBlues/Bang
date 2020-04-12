@@ -1,6 +1,7 @@
 package org.gbcraft.bang.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,54 +12,81 @@ import org.gbcraft.bang.config.OfflinePlayersConfig;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-public class SupajpCommand extends MFCommand{
+public class SupajpCommand extends MFCommand {
     private final static Map<String, OfflinePlayer> containers = new HashMap<>();
+
     public SupajpCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
     }
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base") && args.length >= 2) {
-            OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
+        if (sender.hasPermission("bang.base")) {
+            if(args.length >= 2) {
+                OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
 
-            if(null != player) {
-                containers.put(player.getName(), player);
-                sender.sendMessage("添加成功");
+                if (null != player) {
+                    if (!isContain(player.getName())) {
+                        containers.put(player.getName(), player);
+
+                        plugin.sendMessage(sender, "info.add.success");
+                    }
+                    else {
+
+                        plugin.sendMessage(sender, "info.add.contained");
+
+                    }
+                }
+                else {
+
+                    plugin.sendMessage(sender, "info.player.no-player");
+
+                }
             }
+            else{
+                plugin.sendMessage(sender, "info.command.supajp");
+            }
+        }
+        else{
+            plugin.sendMessage(sender, "info.permission.no");
         }
         return true;
     }
 
-    public static boolean isContain(String name){
+    public static boolean isContain(String name) {
         return containers.get(name) != null;
     }
 
-    public static boolean remove(String name){
-        Boolean res = false;
-        Player p;
-        if(null != containers.get(name) && null != (p=Bukkit.getPlayer(name))){
-
-            p.setAllowFlight(false);
-            p.setWalkSpeed(0.2f);
-            p.setFlySpeed(0.1f);
-            p.removePotionEffect(PotionEffectType.SATURATION);
-
-            containers.remove(name);
-            res = true;
+    public static String remove(String name) {
+        String node;
+        Object obj = containers.remove(name);
+        if(obj != null){
+            node = "info.remove.no-online";
+            Player p = Bukkit.getPlayer(name);
+            if (null != p) {
+                p.setAllowFlight(false);
+                p.setWalkSpeed(0.2f);
+                p.setFlySpeed(0.1f);
+                p.removePotionEffect(PotionEffectType.SATURATION);
+                node = "info.remove.success";
+            }
         }
-        return res;
+        else{
+            node = "info.remove.no-player";
+        }
+        return node;
 
     }
 
-    public static String[] getKeyArray(){
+    public static String[] getKeyArray() {
         return containers.keySet().toArray(new String[0]);
     }
 
-    public static String printContainers(){
+    public static String printContainers() {
         StringBuilder builder = new StringBuilder();
-        containers.forEach((k, v) -> builder.append(k));
+        containers.forEach((k, v) -> builder.append(k).append(" "));
         return builder.toString();
     }
 }

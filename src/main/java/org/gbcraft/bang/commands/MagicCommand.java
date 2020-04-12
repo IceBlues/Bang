@@ -19,13 +19,34 @@ public class MagicCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (sender.hasPermission("bang.base") && args.length >= 2) {
-            OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
+        if (sender.hasPermission("bang.base")) {
+            if(args.length >= 2) {
+                OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
 
-            if (null != player) {
-                containers.put(player.getName(), player);
-                sender.sendMessage("添加成功");
+                if (null != player) {
+                    if (!isContain(player.getName())) {
+                        containers.put(player.getName(), player);
+
+                        plugin.sendMessage(sender, "info.add.success");
+                    }
+                    else {
+
+                        plugin.sendMessage(sender, "info.add.contained");
+
+                    }
+                }
+                else {
+
+                    plugin.sendMessage(sender, "info.player.no-player");
+
+                }
             }
+            else{
+                plugin.sendMessage(sender, "info.command.magic");
+            }
+        }
+        else{
+            plugin.sendMessage(sender, "info.permission.no");
         }
         return true;
     }
@@ -34,15 +55,26 @@ public class MagicCommand extends MFCommand {
         return containers.get(name) != null;
     }
 
-    public static void remove(String name){
-        Player player = Bukkit.getPlayer(name);
-        if(null != player){
-            for(PotionEffect effect : player.getActivePotionEffects())
-            {
-                player.removePotionEffect(effect.getType());
+    public static String remove(String name){
+        String node;
+
+        Object obj = containers.remove(name);
+        if(null != obj){
+            node = "info.remove.no-online";
+            Player player = Bukkit.getPlayer(name);
+            if(null != player){
+                for(PotionEffect effect : player.getActivePotionEffects())
+                {
+                    player.removePotionEffect(effect.getType());
+                }
+                node = "info.remove.success";
             }
         }
-        containers.remove(name);
+        else{
+            node = "info.remove.no-player";
+        }
+
+        return node;
     }
 
     public static String[] getKeyArray(){
@@ -51,7 +83,7 @@ public class MagicCommand extends MFCommand {
 
     public static String printContainers(){
         StringBuilder builder = new StringBuilder();
-        containers.forEach((k, v) -> builder.append(k));
+        containers.forEach((k, v) -> builder.append(k).append(" "));
         return builder.toString();
     }
 }
