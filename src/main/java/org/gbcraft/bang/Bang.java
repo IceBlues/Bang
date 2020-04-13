@@ -23,9 +23,16 @@ public final class Bang extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        saveResource("players.yml", false);
 
         Bukkit.getPluginManager().registerEvents(this, this);
         MFCommandExecutor executor = new MFCommandExecutor(this);
+
+        BlessCommand.init(this);
+        FuckCommand.init(this);
+        MagicCommand.init(this);
+        SupajpCommand.init(this);
+
         Bukkit.getPluginCommand("bang").setExecutor(executor);
         Bukkit.getPluginCommand("bang").setTabCompleter(executor);
     }
@@ -130,7 +137,10 @@ public final class Bang extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-
+        BlessCommand.save(this);
+        FuckCommand.save(this);
+        MagicCommand.save(this);
+        SupajpCommand.save(this);
     }
 
     public void sendMessage(CommandSender sender, String node){

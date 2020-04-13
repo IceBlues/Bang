@@ -1,4 +1,5 @@
 org\gbcraft\bang\commands\ReloadCommand.class
+org\gbcraft\bang\config\ConfigHelper.class
 org\gbcraft\bang\config\OfflinePlayersConfig.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
 org\gbcraft\bang\commands\MagicCommand.class

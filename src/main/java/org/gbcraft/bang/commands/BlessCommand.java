@@ -4,18 +4,37 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.gbcraft.bang.Bang;
+import org.gbcraft.bang.config.ConfigHelper;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class BlessCommand extends MFCommand {
     private final static Map<String, OfflinePlayer> containers = new HashMap<>();
 
     public BlessCommand(Bang plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
+    }
+
+    public static void init(JavaPlugin plugin){
+        List<String> players = ConfigHelper.getPlayersList("bless", plugin);
+        players.forEach(p -> {
+            OfflinePlayer player = OfflinePlayersConfig.get(p);
+            if(null != player){
+                containers.put(p, player);
+            }
+        });
+    }
+
+    public static void save(JavaPlugin plugin){
+        List<String> list = new ArrayList<>();
+        containers.forEach((k,v)->{
+            list.add(k);
+        });
+        ConfigHelper.savePlayersList("bless", list, plugin);
     }
 
     @Override
