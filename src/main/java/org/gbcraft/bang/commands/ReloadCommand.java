@@ -10,14 +10,9 @@ public class ReloadCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if(sender.hasPermission("bang.base")){
-            plugin.saveDefaultConfig();
-            plugin.reloadConfig();
-            plugin.sendMessage(sender, "info.reload.success");
-        }
-        else{
-            plugin.sendMessage(sender, "info.permission.no");
-        }
+        plugin.saveDefaultConfig();
+        plugin.reloadConfig();
+        plugin.sendMessage(sender, "info.reload.success");
 
         return true;
     }

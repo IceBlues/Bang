@@ -41,7 +41,6 @@ public class FreezeCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (sender.hasPermission("bang.base")) {
             if(args.length >= 2) {
                 OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
 
@@ -66,10 +65,6 @@ public class FreezeCommand extends MFCommand {
             else{
                 plugin.sendMessage(sender, "info.command.freeze");
             }
-        }
-        else{
-            plugin.sendMessage(sender, "info.permission.no");
-        }
         return true;
     }
 

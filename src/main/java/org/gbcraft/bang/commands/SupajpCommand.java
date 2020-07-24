@@ -21,19 +21,19 @@ public class SupajpCommand extends MFCommand {
         super(plugin, sender, args);
     }
 
-    public static void init(JavaPlugin plugin){
+    public static void init(JavaPlugin plugin) {
         List<String> players = ConfigHelper.getPlayersList("supajp", plugin);
         players.forEach(p -> {
             OfflinePlayer player = OfflinePlayersConfig.get(p);
-            if(null != player){
+            if (null != player) {
                 containers.put(p, player);
             }
         });
     }
 
-    public static void save(JavaPlugin plugin){
+    public static void save(JavaPlugin plugin) {
         List<String> list = new ArrayList<>();
-        containers.forEach((k,v)->{
+        containers.forEach((k, v) -> {
             list.add(k);
         });
         ConfigHelper.savePlayersList("supajp", list, plugin);
@@ -41,35 +41,31 @@ public class SupajpCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (sender.hasPermission("bang.base")) {
-            if(args.length >= 2) {
-                OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
+        if (args.length >= 2) {
+            OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
 
-                if (null != player) {
-                    if (!isContain(player.getName())) {
-                        containers.put(player.getName(), player);
+            if (null != player) {
+                if (!isContain(player.getName())) {
+                    containers.put(player.getName(), player);
 
-                        plugin.sendMessage(sender, "info.add.success");
-                    }
-                    else {
-
-                        plugin.sendMessage(sender, "info.add.contained");
-
-                    }
+                    plugin.sendMessage(sender, "info.add.success");
                 }
                 else {
 
-                    plugin.sendMessage(sender, "info.player.no-player");
+                    plugin.sendMessage(sender, "info.add.contained");
 
                 }
             }
-            else{
-                plugin.sendMessage(sender, "info.command.supajp");
+            else {
+
+                plugin.sendMessage(sender, "info.player.no-player");
+
             }
         }
-        else{
-            plugin.sendMessage(sender, "info.permission.no");
+        else {
+            plugin.sendMessage(sender, "info.command.supajp");
         }
+
         return true;
     }
 
@@ -80,7 +76,7 @@ public class SupajpCommand extends MFCommand {
     public static String remove(String name) {
         String node;
         Object obj = containers.remove(name);
-        if(obj != null){
+        if (obj != null) {
             node = "info.remove.no-online";
             Player p = Bukkit.getPlayer(name);
             if (null != p) {
@@ -91,7 +87,7 @@ public class SupajpCommand extends MFCommand {
                 node = "info.remove.success";
             }
         }
-        else{
+        else {
             node = "info.remove.no-player";
         }
         return node;

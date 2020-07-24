@@ -11,12 +11,8 @@ public class HelpCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (sender.hasPermission("bang.base")) {
-            plugin.getConfig().getStringList("helpCommand")
-                    .forEach(str -> sender.sendMessage(ChatColor.translateAlternateColorCodes('&', str)));
-        } else {
-            plugin.sendMessage(sender, "info.permission.no");
-        }
+        plugin.getConfig().getStringList("helpCommand")
+                .forEach(str -> sender.sendMessage(ChatColor.translateAlternateColorCodes('&', str)));
         return true;
     }
 }

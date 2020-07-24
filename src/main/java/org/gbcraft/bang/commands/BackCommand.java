@@ -10,7 +10,6 @@ public class BackCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (sender.hasPermission("bang.base")) {
             if (args.length >= 3) {
                 String node;
                 if (args[1].equalsIgnoreCase("fuck")) {
@@ -18,9 +17,6 @@ public class BackCommand extends MFCommand {
                 }
                 else if (args[1].equalsIgnoreCase("magic")) {
                     node = MagicCommand.remove(args[2]);
-                }
-                else if (args[1].equalsIgnoreCase("bless")) {
-                    node = BlessCommand.remove(args[2]);
                 }
                 else if (args[1].equalsIgnoreCase("supajp")) {
                     node = SupajpCommand.remove(args[2]);
@@ -31,7 +27,6 @@ public class BackCommand extends MFCommand {
                 else if (args[1].equalsIgnoreCase("all")) {
                     FuckCommand.remove(args[2]);
                     MagicCommand.remove(args[2]);
-                    BlessCommand.remove(args[2]);
                     SupajpCommand.remove(args[2]);
                     FreezeCommand.remove(args[2]);
                     node = "info.remove.success";
@@ -46,8 +41,6 @@ public class BackCommand extends MFCommand {
                 plugin.sendMessage(sender, "info.command.back");
             }
 
-
-        }
         return true;
     }
 }

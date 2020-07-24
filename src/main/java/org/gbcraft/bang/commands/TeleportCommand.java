@@ -14,36 +14,31 @@ public class TeleportCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (sender.hasPermission("bang.base")) {
-            if (args.length >= 2) {
-                if (args.length == 2 && sender instanceof Player) {
-                    Player to = Bukkit.getPlayer(args[1]);
-                    if (null != to) {
-                        ((Player) sender).teleport(to.getLocation());
-                    }
-                    else{
-                        plugin.sendMessage(sender, "info.player.no-found");
-                    }
+        if (args.length >= 2) {
+            if (args.length == 2 && sender instanceof Player) {
+                Player to = Bukkit.getPlayer(args[1]);
+                if (null != to) {
+                    ((Player) sender).teleport(to.getLocation());
                 }
                 else {
-                    Player from = Bukkit.getPlayer(args[1]);
-                    Player to = Bukkit.getPlayer(args[2]);
-                    if (null != from && null != to) {
-                        from.teleport(to.getLocation());
-                    }
-                    else{
-                        plugin.sendMessage(sender, "info.player.no-found");
-                    }
+                    plugin.sendMessage(sender, "info.player.no-found");
                 }
             }
             else {
-                plugin.sendMessage(sender, "info.command.teleport");
+                Player from = Bukkit.getPlayer(args[1]);
+                Player to = Bukkit.getPlayer(args[2]);
+                if (null != from && null != to) {
+                    from.teleport(to.getLocation());
+                }
+                else {
+                    plugin.sendMessage(sender, "info.player.no-found");
+                }
             }
-
         }
         else {
-            plugin.sendMessage(sender, "info.permission.no");
+            plugin.sendMessage(sender, "info.command.teleport");
         }
+
         return true;
     }
 }

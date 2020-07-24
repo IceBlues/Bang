@@ -1,5 +1,10 @@
 package org.gbcraft.bang;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.BlockPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -28,7 +33,6 @@ public final class Bang extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         MFCommandExecutor executor = new MFCommandExecutor(this);
 
-        BlessCommand.init(this);
         FuckCommand.init(this);
         MagicCommand.init(this);
         SupajpCommand.init(this);
@@ -41,56 +45,31 @@ public final class Bang extends JavaPlugin implements Listener {
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        boolean isFuck = FuckCommand.isContain(player.getName());
         boolean isMagic = MagicCommand.isContain(player.getName());
-        boolean isBless = BlessCommand.isContain(player.getName());
         boolean isSupajp = SupajpCommand.isContain(player.getName());
         boolean isFreeze = FreezeCommand.isContain(player.getName());
-        if (isFuck) {
-            fuck(player);
-        }
+        boolean isFuck = FuckCommand.isContain(player.getName());
 
         if (isMagic && !player.hasPotionEffect(PotionEffectType.UNLUCK)) {
             magic(player);
         }
 
-        if (isBless && !player.hasPotionEffect(PotionEffectType.SATURATION)) {
-            bless(player);
-        }
-
         if (isSupajp && player.getWalkSpeed() != 0.6f) {
             supajp(player);
         }
-        if(isFreeze){
+        if (isFreeze) {
+            event.setCancelled(true);
+        }
+        if (isFuck) {
             event.setCancelled(true);
         }
     }
+
     private void supajp(Player player) {
         player.setAllowFlight(true);
         player.setWalkSpeed(0.6f);
         player.setFlySpeed(0.3f);
         player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0));
-    }
-
-    private void bless(Player player) {
-        List<PotionEffect> blessList = new ArrayList<>();
-        int maxTime = Integer.MAX_VALUE;
-        //饱和
-        blessList.add(new PotionEffect(PotionEffectType.SATURATION, maxTime, 4));
-        //海豚恩惠
-        blessList.add(new PotionEffect(PotionEffectType.DOLPHINS_GRACE, maxTime, 4));
-        //抗火
-        blessList.add(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, maxTime, 4));
-        //抗性
-        blessList.add(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, maxTime, 4));
-        //生命恢复
-        blessList.add(new PotionEffect(PotionEffectType.REGENERATION, maxTime, 4));
-        //力量
-        blessList.add(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, maxTime, 4));
-        //夜视
-        blessList.add(new PotionEffect(PotionEffectType.NIGHT_VISION, maxTime, 0));
-
-        player.addPotionEffects(blessList);
     }
 
     private void magic(Player player) {
@@ -114,11 +93,6 @@ public final class Bang extends JavaPlugin implements Listener {
         player.addPotionEffects(magicList);
     }
 
-    private void fuck(Player player) {
-        player.setHealth(0);
-        player.sendTitle(ChatColor.translateAlternateColorCodes('&', "&cFucking bad guys!"), "Fuck!", 10, 70, 20);
-    }
-
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
@@ -129,12 +103,6 @@ public final class Bang extends JavaPlugin implements Listener {
 
         /*Player has been moved but have buff*/
         if (!MagicCommand.isContain(player.getName()) && player.hasPotionEffect(PotionEffectType.UNLUCK)) {
-            for (PotionEffect effect : player.getActivePotionEffects()) {
-                player.removePotionEffect(effect.getType());
-            }
-        }
-
-        if (!BlessCommand.isContain(player.getName()) && player.hasPotionEffect(PotionEffectType.SATURATION)) {
             for (PotionEffect effect : player.getActivePotionEffects()) {
                 player.removePotionEffect(effect.getType());
             }
@@ -151,7 +119,6 @@ public final class Bang extends JavaPlugin implements Listener {
 
     @Override
     public void onDisable() {
-        BlessCommand.save(this);
         FuckCommand.save(this);
         MagicCommand.save(this);
         SupajpCommand.save(this);

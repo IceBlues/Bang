@@ -20,16 +20,22 @@ public class MFCommandExecutor implements TabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (args.length >= 1) {
-            try {
-                String commandName = new Character(args[0].charAt(0)).toString().toUpperCase() + args[0].substring(1) + "Command";
-                Class<MFCommand> clazz = (Class<MFCommand>) Class.forName("org.gbcraft.bang.commands." + commandName);
-                MFCommand cmd = clazz.getConstructor(Bang.class, CommandSender.class, String[].class).newInstance(plugin, sender, args);
-                return cmd.run();
+        if (args.length >= 1 && sender.hasPermission("bang.base")) {
+            if (sender.hasPermission("bang.base")) {
+                try {
+                    String commandName = new Character(args[0].charAt(0)).toString().toUpperCase() + args[0].substring(1) + "Command";
+                    Class<MFCommand> clazz = (Class<MFCommand>) Class.forName("org.gbcraft.bang.commands." + commandName);
+                    MFCommand cmd = clazz.getConstructor(Bang.class, CommandSender.class, String[].class).newInstance(plugin, sender, args);
+                    return cmd.run();
+                }
+                catch (Exception e) {
+                }
             }
-            catch (Exception e) {
+            else {
+                plugin.sendMessage(sender, "info.permission.no");
             }
         }
+
         return false;
     }
 
@@ -51,18 +57,15 @@ public class MFCommandExecutor implements TabExecutor {
                 return Arrays.stream(backCommands).filter(c -> c.startsWith(args[1])).collect(Collectors.toList());
             }
             //bigger than 2
-            else{
+            else {
                 List<String> res = null;
                 String backCommand = args[1];
-                switch (backCommand){
+                switch (backCommand) {
                     case "fuck":
                         res = Arrays.stream(FuckCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
                     case "magic":
                         res = Arrays.stream(MagicCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
-                        break;
-                    case "bless":
-                        res = Arrays.stream(BlessCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
                     case "supajp":
                         res = Arrays.stream(SupajpCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
