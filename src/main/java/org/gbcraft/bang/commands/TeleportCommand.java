@@ -1,6 +1,7 @@
 package org.gbcraft.bang.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
@@ -14,29 +15,65 @@ public class TeleportCommand extends MFCommand {
 
     @Override
     public boolean run() {
-        if (args.length >= 2) {
-            if (args.length == 2 && sender instanceof Player) {
-                Player to = Bukkit.getPlayer(args[1]);
-                if (null != to) {
-                    ((Player) sender).teleport(to.getLocation());
-                }
-                else {
-                    plugin.sendMessage(sender, "info.player.no-found");
-                }
+        if (args.length == 2) {
+            if (!(sender instanceof Player)) {
+                plugin.sendMessage(sender, "info.command.teleport");
             }
             else {
-                Player from = Bukkit.getPlayer(args[1]);
-                Player to = Bukkit.getPlayer(args[2]);
-                if (null != from && null != to) {
-                    from.teleport(to.getLocation());
+                String[] loc = args[1].split(",");
+                if (loc.length == 3) {
+                    try {
+                        double x = Double.parseDouble(loc[0]);
+                        double z = Double.parseDouble(loc[1]);
+                        double y = Double.parseDouble(loc[2]);
+                        ((Player) sender).teleport(new Location(((Player) sender).getWorld(), x, y, z));
+                    }
+                    catch (Exception E) {
+                        plugin.sendMessage(sender, "info.command.teleport");
+                    }
+
                 }
                 else {
-                    plugin.sendMessage(sender, "info.player.no-found");
+                    Player to = Bukkit.getPlayer(args[1]);
+                    if (null != to) {
+                        ((Player) sender).teleport(to.getLocation());
+                    }
+                    else {
+                        plugin.sendMessage(sender, "info.player.no-found");
+                    }
                 }
             }
         }
-        else {
-            plugin.sendMessage(sender, "info.command.teleport");
+        else if (args.length > 2) {
+            Player from = Bukkit.getPlayer(args[1]);
+            String[] toLoc = args[2].split(",");
+            if (null != from) {
+                if (toLoc.length == 3) {
+                    try {
+                        double x = Double.parseDouble(toLoc[0]);
+                        double z = Double.parseDouble(toLoc[1]);
+                        double y = Double.parseDouble(toLoc[2]);
+                        from.teleport(new Location(from.getWorld(), x, y, z));
+                    }
+                    catch (Exception E) {
+                        plugin.sendMessage(sender, "info.command.teleport");
+                    }
+
+                }
+                else {
+                    Player to = Bukkit.getPlayer(args[2]);
+                    if (null != to) {
+                        from.teleport(to.getLocation());
+                    }
+                    else {
+                        plugin.sendMessage(sender, "info.player.no-found");
+                    }
+                }
+            }
+            else {
+                plugin.sendMessage(sender, "info.player.no-found");
+            }
+
         }
 
         return true;
