@@ -37,6 +37,7 @@ public final class Bang extends JavaPlugin implements Listener {
         MagicCommand.init(this);
         SupajpCommand.init(this);
         FreezeCommand.init(this);
+        DeadCommand.init(this);
 
         Bukkit.getPluginCommand("bang").setExecutor(executor);
         Bukkit.getPluginCommand("bang").setTabCompleter(executor);
@@ -49,6 +50,7 @@ public final class Bang extends JavaPlugin implements Listener {
         boolean isSupajp = SupajpCommand.isContain(player.getName());
         boolean isFreeze = FreezeCommand.isContain(player.getName());
         boolean isFuck = FuckCommand.isContain(player.getName());
+        boolean isDead = DeadCommand.isContain(player.getName());
 
         if (isMagic && !player.hasPotionEffect(PotionEffectType.UNLUCK)) {
             magic(player);
@@ -62,6 +64,9 @@ public final class Bang extends JavaPlugin implements Listener {
         }
         if (isFuck) {
             event.setCancelled(true);
+        }
+        if(isDead){
+            player.setHealth(0);
         }
     }
 

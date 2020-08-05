@@ -17,7 +17,8 @@ public class ListCommand extends MFCommand {
         sender.sendMessage("SupajpList:\n" + SupajpCommand.printContainers());
         sender.sendMessage("=====================");
         sender.sendMessage("FreezeList:\n" + FreezeCommand.printContainers());
-
+        sender.sendMessage("=====================");
+        sender.sendMessage("DeadList:\n" + DeadCommand.printContainers());
 
         return true;
     }
