@@ -39,8 +39,8 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static String[] subCommands = {"dead", "fuck", "magic", "bless", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help"};
-    private static String[] backCommands = {"dead", "fuck", "magic", "bless", "supajp", "freeze", "all"};
+    private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "bless", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help"};
+    private static final String[] backCommands = {"banchat", "dead", "fuck", "magic", "bless", "supajp", "freeze", "all"};
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -72,6 +72,12 @@ public class MFCommandExecutor implements TabExecutor {
                         break;
                     case "freeze":
                         res = Arrays.stream(FreezeCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                        break;
+                    case "dead":
+                        res = Arrays.stream(DeadCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                        break;
+                    case "banchat":
+                        res = Arrays.stream(BanchatCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                 }
                 return res;
             }

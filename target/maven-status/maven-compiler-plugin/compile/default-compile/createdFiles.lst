@@ -5,6 +5,7 @@ org\gbcraft\bang\commands\DeadCommand.class
 org\gbcraft\bang\config\OfflinePlayersConfig.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
 org\gbcraft\bang\commands\MagicCommand.class
+org\gbcraft\bang\commands\BanchatCommand.class
 org\gbcraft\bang\commands\ListCommand.class
 org\gbcraft\bang\commands\BackCommand.class
 org\gbcraft\bang\commands\FuckCommand.class

@@ -10,6 +10,8 @@ public class ListCommand extends MFCommand {
 
     @Override
     public boolean run() {
+        sender.sendMessage("BanChatList:\n" + BanchatCommand.printContainers());
+        sender.sendMessage("=====================");
         sender.sendMessage("FuckList:\n" + FuckCommand.printContainers());
         sender.sendMessage("=====================");
         sender.sendMessage("MagicList:\n" + MagicCommand.printContainers());

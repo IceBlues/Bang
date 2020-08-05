@@ -27,11 +27,16 @@ public class BackCommand extends MFCommand {
             else if (args[1].equalsIgnoreCase("dead")) {
                 node = DeadCommand.remove(args[2]);
             }
+            else if(args[1].equalsIgnoreCase("banchat")){
+                node = BanchatCommand.remove(args[2]);
+            }
             else if (args[1].equalsIgnoreCase("all")) {
                 FuckCommand.remove(args[2]);
                 MagicCommand.remove(args[2]);
                 SupajpCommand.remove(args[2]);
                 FreezeCommand.remove(args[2]);
+                DeadCommand.remove(args[2]);
+                BanchatCommand.remove(args[2]);
                 node = "info.remove.success";
             }
             else {

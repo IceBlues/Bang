@@ -1,16 +1,12 @@
 package org.gbcraft.bang;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.BlockPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -33,6 +29,7 @@ public final class Bang extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         MFCommandExecutor executor = new MFCommandExecutor(this);
 
+        BanchatCommand.init(this);
         FuckCommand.init(this);
         MagicCommand.init(this);
         SupajpCommand.init(this);
@@ -65,7 +62,7 @@ public final class Bang extends JavaPlugin implements Listener {
         if (isFuck) {
             event.setCancelled(true);
         }
-        if(isDead){
+        if (isDead) {
             player.setHealth(0);
         }
     }
@@ -121,6 +118,12 @@ public final class Bang extends JavaPlugin implements Listener {
         }
     }
 
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        if (BanchatCommand.isContain(event.getPlayer().getName())) {
+            event.setMessage("***");
+        }
+    }
 
     @Override
     public void onDisable() {
