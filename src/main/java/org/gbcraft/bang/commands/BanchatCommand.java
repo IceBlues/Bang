@@ -7,6 +7,7 @@ import org.gbcraft.bang.Bang;
 import org.gbcraft.bang.config.ConfigHelper;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,6 +71,14 @@ public class BanchatCommand extends MFCommand {
             node = "info.remove.no-player";
         }
         return node;
+    }
+
+    public static void save(JavaPlugin plugin){
+        List<String> list = new ArrayList<>();
+        containers.forEach((k,v)->{
+            list.add(k);
+        });
+        ConfigHelper.savePlayersList("banchat", list, plugin);
     }
 
     public static String[] getKeyArray() {

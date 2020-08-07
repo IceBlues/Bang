@@ -2,6 +2,7 @@ package org.gbcraft.bang;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Utility;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -131,6 +132,8 @@ public final class Bang extends JavaPlugin implements Listener {
         MagicCommand.save(this);
         SupajpCommand.save(this);
         FreezeCommand.save(this);
+        DeadCommand.save(this);
+        BanchatCommand.save(this);
     }
 
     public void sendMessage(CommandSender sender, String node) {

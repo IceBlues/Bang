@@ -1,5 +1,5 @@
 name: Bang
-version: 2.0.11
+version: 2.0.12
 main: org.gbcraft.bang.Bang
 api-version: 1.13
 depend: [ProtocolLib]
