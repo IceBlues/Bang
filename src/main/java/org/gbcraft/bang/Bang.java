@@ -2,8 +2,8 @@ package org.gbcraft.bang;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Utility;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,8 +13,11 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.gbcraft.bang.commands.*;
+import org.gbcraft.bang.commands.MFCommandExecutor;
+import org.gbcraft.bang.commands.bean.CommandName;
+import org.gbcraft.bang.commands.bean.ContainerManager;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
+import org.gbcraft.bang.exception.PluginNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,25 +33,36 @@ public final class Bang extends JavaPlugin implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this);
         MFCommandExecutor executor = new MFCommandExecutor(this);
 
-        BanchatCommand.init(this);
-        FuckCommand.init(this);
-        MagicCommand.init(this);
-        SupajpCommand.init(this);
-        FreezeCommand.init(this);
-        DeadCommand.init(this);
+        try {
+            ContainerManager.init(this);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        Bukkit.getPluginCommand("bang").setExecutor(executor);
-        Bukkit.getPluginCommand("bang").setTabCompleter(executor);
+        PluginCommand bang = Bukkit.getPluginCommand("bang");
+        if (null != bang) {
+            bang.setExecutor(executor);
+            bang.setTabCompleter(executor);
+        }
+        else {
+            try {
+                throw new PluginNotFoundException();
+            }
+            catch (PluginNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
-        boolean isMagic = MagicCommand.isContain(player.getName());
-        boolean isSupajp = SupajpCommand.isContain(player.getName());
-        boolean isFreeze = FreezeCommand.isContain(player.getName());
-        boolean isFuck = FuckCommand.isContain(player.getName());
-        boolean isDead = DeadCommand.isContain(player.getName());
+        String pName = player.getName();
+        boolean isMagic = ContainerManager.isContain(CommandName.MAGIC, pName);
+        boolean isSupajp = ContainerManager.isContain(CommandName.SUPAJP, pName);
+        boolean isFreeze = ContainerManager.isContain(CommandName.FREEZE, pName);
+        boolean isDead = ContainerManager.isContain(CommandName.DEAD, pName);
 
         if (isMagic && !player.hasPotionEffect(PotionEffectType.UNLUCK)) {
             magic(player);
@@ -58,9 +72,6 @@ public final class Bang extends JavaPlugin implements Listener {
             supajp(player);
         }
         if (isFreeze) {
-            event.setCancelled(true);
-        }
-        if (isFuck) {
             event.setCancelled(true);
         }
         if (isDead) {
@@ -105,13 +116,13 @@ public final class Bang extends JavaPlugin implements Listener {
         }
 
         /*Player has been moved but have buff*/
-        if (!MagicCommand.isContain(player.getName()) && player.hasPotionEffect(PotionEffectType.UNLUCK)) {
+        if (!ContainerManager.isContain(CommandName.MAGIC, player.getName()) && player.hasPotionEffect(PotionEffectType.UNLUCK)) {
             for (PotionEffect effect : player.getActivePotionEffects()) {
                 player.removePotionEffect(effect.getType());
             }
         }
 
-        if (!SupajpCommand.isContain(player.getName()) && player.getWalkSpeed() != 0.6f) {
+        if (!ContainerManager.isContain(CommandName.SUPAJP, player.getName()) && player.getWalkSpeed() != 0.6f) {
             player.setAllowFlight(false);
             player.setWalkSpeed(0.2f);
             player.setFlySpeed(0.1f);
@@ -121,19 +132,14 @@ public final class Bang extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        if (BanchatCommand.isContain(event.getPlayer().getName())) {
+        if (ContainerManager.isContain(CommandName.BANCHAT, event.getPlayer().getName())) {
             event.setMessage("***");
         }
     }
 
     @Override
     public void onDisable() {
-        FuckCommand.save(this);
-        MagicCommand.save(this);
-        SupajpCommand.save(this);
-        FreezeCommand.save(this);
-        DeadCommand.save(this);
-        BanchatCommand.save(this);
+        ContainerManager.saveAll();
     }
 
     public void sendMessage(CommandSender sender, String node) {

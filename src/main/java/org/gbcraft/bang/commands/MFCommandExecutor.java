@@ -4,6 +4,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.gbcraft.bang.Bang;
+import org.gbcraft.bang.commands.bean.CommandName;
+import org.gbcraft.bang.commands.bean.ContainerManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,7 +25,7 @@ public class MFCommandExecutor implements TabExecutor {
         if (args.length >= 1 && sender.hasPermission("bang.base")) {
             if (sender.hasPermission("bang.base")) {
                 try {
-                    String commandName = new Character(args[0].charAt(0)).toString().toUpperCase() + args[0].substring(1) + "Command";
+                    String commandName = Character.toString(args[0].charAt(0)).toUpperCase() + args[0].substring(1) + "Command";
                     Class<MFCommand> clazz = (Class<MFCommand>) Class.forName("org.gbcraft.bang.commands." + commandName);
                     MFCommand cmd = clazz.getConstructor(Bang.class, CommandSender.class, String[].class).newInstance(plugin, sender, args);
                     return cmd.run();
@@ -39,8 +41,8 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "bless", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help"};
-    private static final String[] backCommands = {"banchat", "dead", "fuck", "magic", "bless", "supajp", "freeze", "all"};
+    private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help"};
+    private static final String[] backCommands = {"banchat", "dead", "fuck", "magic", "supajp", "freeze", "all"};
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -60,24 +62,25 @@ public class MFCommandExecutor implements TabExecutor {
             else {
                 List<String> res = null;
                 String backCommand = args[1];
-                switch (backCommand) {
-                    case "fuck":
-                        res = Arrays.stream(FuckCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                CommandName backCommandName = CommandName.valueOf(backCommand.toUpperCase());
+                switch (backCommandName) {
+                    case FUCK:
+                        res = Arrays.stream(ContainerManager.getArray(CommandName.FUCK)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
-                    case "magic":
-                        res = Arrays.stream(MagicCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                    case MAGIC:
+                        res = Arrays.stream(ContainerManager.getArray(CommandName.MAGIC)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
-                    case "supajp":
-                        res = Arrays.stream(SupajpCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                    case SUPAJP:
+                        res = Arrays.stream(ContainerManager.getArray(CommandName.SUPAJP)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
-                    case "freeze":
-                        res = Arrays.stream(FreezeCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                    case FREEZE:
+                        res = Arrays.stream(ContainerManager.getArray(CommandName.FREEZE)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
-                    case "dead":
-                        res = Arrays.stream(DeadCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                    case DEAD:
+                        res = Arrays.stream(ContainerManager.getArray(CommandName.DEAD)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                         break;
-                    case "banchat":
-                        res = Arrays.stream(BanchatCommand.getKeyArray()).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                    case BANCHAT:
+                        res = Arrays.stream(ContainerManager.getArray(CommandName.BANCHAT)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
                 }
                 return res;
             }

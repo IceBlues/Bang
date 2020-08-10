@@ -1,7 +1,7 @@
 name: Bang
-version: 2.0.12
+version: 3.0.0
 main: org.gbcraft.bang.Bang
-api-version: 1.13
+api-version: 1.16
 depend: [ProtocolLib]
 authors: [IceBlues7]
 description: Fucking mother fucker boys
