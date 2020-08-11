@@ -41,7 +41,7 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help"};
+    private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help", "version"};
     private static final String[] backCommands = {"banchat", "dead", "fuck", "magic", "supajp", "freeze", "all"};
 
     @Override

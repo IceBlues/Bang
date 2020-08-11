@@ -1,5 +1,6 @@
 org\gbcraft\bang\config\ConfigHelper.class
 org\gbcraft\bang\commands\FreezeCommand.class
+org\gbcraft\bang\commands\VersionCommand.class
 org\gbcraft\bang\config\OfflinePlayersConfig.class
 org\gbcraft\bang\commands\MagicCommand.class
 org\gbcraft\bang\commands\ListCommand.class
@@ -20,3 +21,4 @@ org\gbcraft\bang\commands\FuckCommand.class
 org\gbcraft\bang\commands\HelpCommand.class
 org\gbcraft\bang\commands\bean\CommandName.class
 org\gbcraft\bang\commands\UglyfaceCommand.class
+org\gbcraft\bang\Bang$1.class
