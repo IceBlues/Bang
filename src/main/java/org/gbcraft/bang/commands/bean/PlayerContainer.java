@@ -1,5 +1,7 @@
 package org.gbcraft.bang.commands.bean;
 
+import org.bukkit.BanList;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gbcraft.bang.config.ConfigHelper;
 
@@ -57,6 +59,16 @@ public class PlayerContainer {
         return node;
     }
 
+    public void releaseAll() {
+        List<String> releaseList = new ArrayList<>();
+        containers.forEach((s, player) -> {
+            if (Bukkit.getBanList(BanList.Type.NAME).isBanned(player.playerName)) {
+                releaseList.add(s);
+            }
+        });
+        releaseList.forEach(containers::remove);
+    }
+
     public void save() {
         List<String> list = new ArrayList<>();
         containers.forEach((k, v) -> {
@@ -81,6 +93,10 @@ public class PlayerContainer {
 
     public Map<String, CommandPlayer> getIns() {
         return containers;
+    }
+
+    public boolean isEmpty() {
+        return containers.isEmpty();
     }
 
     public String printContainers() {

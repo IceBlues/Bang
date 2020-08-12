@@ -33,7 +33,7 @@ public final class Bang extends JavaPlugin implements Listener {
         saveResource("players.yml", false);
 
         Bukkit.getPluginManager().registerEvents(this, this);
-        MFCommandExecutor executor = new MFCommandExecutor(this);
+        cycleTask();
 
         try {
             ContainerManager.init(this);
@@ -44,6 +44,7 @@ public final class Bang extends JavaPlugin implements Listener {
 
         PluginCommand bang = Bukkit.getPluginCommand("bang");
         if (null != bang) {
+            MFCommandExecutor executor = new MFCommandExecutor(this);
             bang.setExecutor(executor);
             bang.setTabCompleter(executor);
         }
@@ -57,14 +58,30 @@ public final class Bang extends JavaPlugin implements Listener {
         }
     }
 
-    @EventHandler
+    private void cycleTask() {
+        Bukkit.getScheduler().runTaskTimer(this, () -> {
+            if (!ContainerManager.isEmpty(CommandName.DEAD)) {
+                String[] players = ContainerManager.getArray(CommandName.DEAD);
+                for (String p : players) {
+                    Player player = Bukkit.getPlayer(p);
+                    if (null != player) {
+                        player.addScoreboardTag("Bang");
+                        player.setHealth(0);
+                    }
+                }
+            }
+        }, 20 * 10, 20);
+
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, ContainerManager::releaseAll, 1, 20 * 60 * 30);
+    }
+
+    @EventHandler(ignoreCancelled = true)
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();
         String pName = player.getName();
         boolean isMagic = ContainerManager.isContain(CommandName.MAGIC, pName);
         boolean isSupajp = ContainerManager.isContain(CommandName.SUPAJP, pName);
         boolean isFreeze = ContainerManager.isContain(CommandName.FREEZE, pName);
-        boolean isDead = ContainerManager.isContain(CommandName.DEAD, pName);
 
         if (isMagic && !player.hasPotionEffect(PotionEffectType.UNLUCK)) {
             magic(player);
@@ -76,13 +93,9 @@ public final class Bang extends JavaPlugin implements Listener {
         if (isFreeze) {
             event.setCancelled(true);
         }
-        if (isDead) {
-            player.addScoreboardTag("Bang");
-            player.setHealth(0);
-
-        }
     }
 
+    @EventHandler(ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();

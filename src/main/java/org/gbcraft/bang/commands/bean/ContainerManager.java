@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ContainerManager {
-    private static Map<Class<? extends MFCommand>, PlayerContainer> map = new HashMap<>();
+    private final static Map<Class<? extends MFCommand>, PlayerContainer> map = new HashMap<>();
 
     public static void init(JavaPlugin plugin) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         for (CommandName value : CommandName.values()) {
@@ -52,6 +52,10 @@ public class ContainerManager {
         return map.get(name.CommandClass()).getKeyArray();
     }
 
+    public static boolean isEmpty(CommandName name) {
+        return !map.containsKey(name.CommandClass()) || map.get(name.CommandClass()).isEmpty();
+    }
+
     public static String remove(CommandName className, String name) {
         Class<MFCommand> clazz = className.CommandClass();
         return map.get(clazz).remove(name);
@@ -61,6 +65,12 @@ public class ContainerManager {
         for (CommandName value : CommandName.values()) {
             remove(value, name);
         }
+    }
+
+    public static void releaseAll() {
+        map.forEach((aClass, container) -> {
+            container.releaseAll();
+        });
     }
 
     public static String printContainers(CommandName name) {
