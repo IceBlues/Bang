@@ -20,8 +20,10 @@ import org.gbcraft.bang.commands.bean.CommandPlayer;
 import org.gbcraft.bang.commands.bean.ContainerManager;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 import org.gbcraft.bang.exception.PluginNotFoundException;
+import org.gbcraft.bang.util.FuckTaskUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -33,7 +35,6 @@ public final class Bang extends JavaPlugin implements Listener {
         saveResource("players.yml", false);
 
         Bukkit.getPluginManager().registerEvents(this, this);
-        cycleTask();
 
         try {
             ContainerManager.init(this);
@@ -42,6 +43,7 @@ public final class Bang extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
 
+        initCycleTask();
         PluginCommand bang = Bukkit.getPluginCommand("bang");
         if (null != bang) {
             MFCommandExecutor executor = new MFCommandExecutor(this);
@@ -58,7 +60,13 @@ public final class Bang extends JavaPlugin implements Listener {
         }
     }
 
-    private void cycleTask() {
+    private void initCycleTask() {
+        String[] fuckPlayers = ContainerManager.getArray(CommandName.FUCK);
+        for (String name : fuckPlayers) {
+            FuckTaskUtil.append(name);
+        }
+
+        // dead
         Bukkit.getScheduler().runTaskTimer(this, () -> {
             if (!ContainerManager.isEmpty(CommandName.DEAD)) {
                 String[] players = ContainerManager.getArray(CommandName.DEAD);

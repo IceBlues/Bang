@@ -91,10 +91,6 @@ public class PlayerContainer {
         return containers.keySet().toArray(new String[0]);
     }
 
-    public Map<String, CommandPlayer> getIns() {
-        return containers;
-    }
-
     public boolean isEmpty() {
         return containers.isEmpty();
     }

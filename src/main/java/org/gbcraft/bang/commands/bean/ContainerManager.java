@@ -5,20 +5,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.gbcraft.bang.Bang;
 import org.gbcraft.bang.commands.MFCommand;
+import org.gbcraft.bang.util.FuckTaskUtil;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ContainerManager {
     private final static Map<Class<? extends MFCommand>, PlayerContainer> map = new HashMap<>();
 
-    public static void init(JavaPlugin plugin) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static void init(JavaPlugin plugin) {
         for (CommandName value : CommandName.values()) {
             map.put(value.CommandClass(), new PlayerContainer(plugin, value));
-            if (value == CommandName.FUCK) {
-                CommandName.FUCK.CommandClass().getMethod("fuckInit", JavaPlugin.class, PlayerContainer.class).invoke(null, plugin, map.get(value.CommandClass()));
-            }
         }
     }
 
@@ -32,6 +29,9 @@ public class ContainerManager {
         if (null != player) {
             if (!container.isContain(player.getName())) {
                 container.put(player.getName(), desc);
+                if (clazz == CommandName.FUCK.CommandClass()) {
+                    FuckTaskUtil.append(player.getName());
+                }
                 plugin.sendMessage(sender, "info.add.success");
             }
             else {
@@ -49,7 +49,8 @@ public class ContainerManager {
 
     // 先传枚举再转类是为了解开调用类和命令类的耦合
     public static String[] getArray(CommandName name) {
-        return map.get(name.CommandClass()).getKeyArray();
+        PlayerContainer container = map.get(name.CommandClass());
+        return container != null ? container.getKeyArray() : new String[]{};
     }
 
     public static boolean isEmpty(CommandName name) {
@@ -58,7 +59,16 @@ public class ContainerManager {
 
     public static String remove(CommandName className, String name) {
         Class<MFCommand> clazz = className.CommandClass();
-        return map.get(clazz).remove(name);
+        PlayerContainer container = map.get(clazz);
+        String node = "info.remove.no-player";
+        if (null != container) {
+            if (clazz == CommandName.FUCK.CommandClass()) {
+                FuckTaskUtil.remove(name);
+            }
+            node = container.remove(name);
+        }
+
+        return node;
     }
 
     public static void removeAll(String name) {
