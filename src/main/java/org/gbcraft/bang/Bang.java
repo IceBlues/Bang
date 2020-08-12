@@ -104,7 +104,7 @@ public final class Bang extends JavaPlugin implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if (player.getScoreboardTags().contains("Bang")) {
+            if (ContainerManager.isContain(CommandName.DEAD, player.getName())) {
                 event.getDrops().clear();
                 new BukkitRunnable() {
                     double t = Math.PI / 4;
@@ -121,7 +121,7 @@ public final class Bang extends JavaPlugin implements Listener {
                             player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, loc, 1);
                             loc.subtract(x, y, z);
                         }
-                        if (t > 20) {
+                        if (t > 10) {
                             this.cancel();
                         }
                     }
