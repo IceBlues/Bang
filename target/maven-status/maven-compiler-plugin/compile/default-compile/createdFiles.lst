@@ -11,13 +11,16 @@ org\gbcraft\bang\commands\MFCommandExecutor$1.class
 org\gbcraft\bang\Bang.class
 org\gbcraft\bang\commands\bean\CommandPlayer.class
 org\gbcraft\bang\commands\MFCommand.class
+org\gbcraft\bang\util\FuckTaskUtil$1.class
 org\gbcraft\bang\commands\TeleportCommand.class
 org\gbcraft\bang\commands\ReloadCommand.class
+org\gbcraft\bang\util\FuckTaskUtil.class
 org\gbcraft\bang\commands\DeadCommand.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
 org\gbcraft\bang\commands\BanchatCommand.class
 org\gbcraft\bang\commands\bean\ContainerManager.class
 org\gbcraft\bang\exception\PluginNotFoundException.class
+org\gbcraft\bang\util\ProtocolUtil.class
 org\gbcraft\bang\commands\FuckCommand.class
 org\gbcraft\bang\commands\HelpCommand.class
 org\gbcraft\bang\commands\bean\CommandName.class

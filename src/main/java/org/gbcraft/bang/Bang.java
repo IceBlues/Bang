@@ -7,9 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -23,7 +21,6 @@ import org.gbcraft.bang.exception.PluginNotFoundException;
 import org.gbcraft.bang.util.FuckTaskUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 
@@ -196,6 +193,19 @@ public final class Bang extends JavaPlugin implements Listener {
             }
 
         }
+    }
+
+    @EventHandler
+    public void onCommand(PlayerCommandPreprocessEvent event) {
+        String message = event.getMessage();
+        if (message.length() > 1) {
+            String[] s = message.substring(1).split(" ");
+            String cmd = s[0];
+            if (ContainerManager.isContain(CommandName.BANCHAT, event.getPlayer().getName()) && ContainerManager.getCommandPlayer(CommandName.BANCHAT, event.getPlayer().getName()).isDesc("banchat_enforce") && (cmd.equalsIgnoreCase("tell") || cmd.equalsIgnoreCase("m") || cmd.equalsIgnoreCase("r"))) {
+                event.setCancelled(true);
+            }
+        }
+
     }
 
     @Override
