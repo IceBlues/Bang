@@ -1,9 +1,6 @@
 package org.gbcraft.bang;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
@@ -19,6 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.gbcraft.bang.commands.MFCommandExecutor;
 import org.gbcraft.bang.commands.bean.CommandName;
+import org.gbcraft.bang.commands.bean.CommandPlayer;
 import org.gbcraft.bang.commands.bean.ContainerManager;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 import org.gbcraft.bang.exception.PluginNotFoundException;
@@ -85,26 +83,27 @@ public final class Bang extends JavaPlugin implements Listener {
         }
     }
 
-    public void onEntityDeath(EntityDeathEvent event){
-        if(event.getEntity() instanceof Player){
+    public void onEntityDeath(EntityDeathEvent event) {
+        if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if(player.getScoreboardTags().contains("Bang")){
+            if (player.getScoreboardTags().contains("Bang")) {
                 event.getDrops().clear();
                 new BukkitRunnable() {
-                    double t = Math.PI/4;
+                    double t = Math.PI / 4;
                     final Location loc = player.getLocation().clone();
+
                     @Override
                     public void run() {
-                        t = t + 0.1*Math.PI;
-                        for (double theta = 0; theta <= 2*Math.PI; theta = theta + Math.PI/32){
-                            double x = t*Math.cos(theta);
-                            double y = 2*Math.exp(-0.1*t) * Math.sin(t) + 1.5;
-                            double z = t*Math.sin(theta);
-                            loc.add(x,y,z);
+                        t = t + 0.1 * Math.PI;
+                        for (double theta = 0; theta <= 2 * Math.PI; theta = theta + Math.PI / 32) {
+                            double x = t * Math.cos(theta);
+                            double y = 2 * Math.exp(-0.1 * t) * Math.sin(t) + 1.5;
+                            double z = t * Math.sin(theta);
+                            loc.add(x, y, z);
                             player.getWorld().spawnParticle(Particle.FIREWORKS_SPARK, loc, 1);
                             loc.subtract(x, y, z);
                         }
-                        if(t > 20){
+                        if (t > 20) {
                             this.cancel();
                         }
                     }
@@ -166,8 +165,15 @@ public final class Bang extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
-        if (ContainerManager.isContain(CommandName.BANCHAT, event.getPlayer().getName())) {
-            event.setMessage("***");
+        CommandPlayer player = ContainerManager.getCommandPlayer(CommandName.BANCHAT, event.getPlayer().getName());
+        if (null != player) {
+            if (player.isDesc("banchat_enforce")) {
+                event.setCancelled(true);
+            }
+            else {
+                event.setMessage("***");
+            }
+
         }
     }
 

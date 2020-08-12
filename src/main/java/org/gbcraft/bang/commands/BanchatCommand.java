@@ -15,7 +15,11 @@ public class BanchatCommand extends MFCommand {
     public boolean run() {
         if (args.length >= 2) {
             OfflinePlayer player = OfflinePlayersConfig.get(args[1]);
-            ContainerManager.prePut(this.getClass(), sender, player);
+            String desc = null;
+            if (args.length > 2 && args[2].equalsIgnoreCase("enforce")) {
+                desc = "banchat_enforce";
+            }
+            ContainerManager.prePut(this.getClass(), sender, player, desc);
 
         }
         else {

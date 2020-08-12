@@ -26,12 +26,12 @@ public class ContainerManager {
         return map.get(name.CommandClass()).isContain(player);
     }
 
-    public static void prePut(Class<? extends MFCommand> clazz, CommandSender sender, OfflinePlayer player) {
+    public static void prePut(Class<? extends MFCommand> clazz, CommandSender sender, OfflinePlayer player, String... desc) {
         Bang plugin = Bang.getPlugin(Bang.class);
         PlayerContainer container = map.get(clazz);
         if (null != player) {
             if (!container.isContain(player.getName())) {
-                container.put(player.getName(), player);
+                container.put(player.getName(), desc);
                 plugin.sendMessage(sender, "info.add.success");
             }
             else {
@@ -41,6 +41,10 @@ public class ContainerManager {
         else {
             plugin.sendMessage(sender, "info.player.no-player");
         }
+    }
+
+    public static CommandPlayer getCommandPlayer(CommandName name, String playerName) {
+        return map.get(name.CommandClass()).getCommandPlayer(playerName);
     }
 
     // 先传枚举再转类是为了解开调用类和命令类的耦合

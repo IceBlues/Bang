@@ -7,10 +7,7 @@ import org.gbcraft.bang.Bang;
 import org.gbcraft.bang.commands.bean.CommandName;
 import org.gbcraft.bang.commands.bean.ContainerManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class MFCommandExecutor implements TabExecutor {
@@ -84,6 +81,10 @@ public class MFCommandExecutor implements TabExecutor {
                 }
                 return res;
             }
+        }
+        // /bang banchat(0) player(1) [](2)
+        if (args.length == 3 && args[0].equalsIgnoreCase("banchat")) {
+            return Collections.singletonList("enforce");
         }
 
         ArrayList<String> list = new ArrayList<>();

@@ -9,6 +9,7 @@ org\gbcraft\bang\commands\bean\PlayerContainer.class
 org\gbcraft\bang\commands\SupajpCommand.class
 org\gbcraft\bang\commands\MFCommandExecutor$1.class
 org\gbcraft\bang\Bang.class
+org\gbcraft\bang\commands\bean\CommandPlayer.class
 org\gbcraft\bang\commands\MFCommand.class
 org\gbcraft\bang\commands\TeleportCommand.class
 org\gbcraft\bang\commands\ReloadCommand.class

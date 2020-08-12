@@ -17,7 +17,7 @@ helpCommand:
 warningMsg: ""
 info:
   command:
-    banchat: '&b/bang banchat&f <player>'
+    banchat: '&b/bang banchat&f <player> [enforce]'
     dead: '&b/bang dead&f <player>'
     fuck: '&b/bang fuck&f <player>'
     magic: '&b/bang magic&f <player>'
