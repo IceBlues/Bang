@@ -179,6 +179,17 @@ public final class Bang extends JavaPlugin implements Listener {
             player.setFlySpeed(0.1f);
             player.removePotionEffect(PotionEffectType.SATURATION);
         }
+
+        if (ContainerManager.isContain(CommandName.BANCHAT, player.getName())) {
+            event.setJoinMessage("");
+        }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        if (ContainerManager.isContain(CommandName.BANCHAT, event.getPlayer().getName())) {
+            event.setQuitMessage("");
+        }
     }
 
     @EventHandler
@@ -201,7 +212,7 @@ public final class Bang extends JavaPlugin implements Listener {
         if (message.length() > 1) {
             String[] s = message.substring(1).split(" ");
             String cmd = s[0];
-            if (ContainerManager.isContain(CommandName.BANCHAT, event.getPlayer().getName()) && ContainerManager.getCommandPlayer(CommandName.BANCHAT, event.getPlayer().getName()).isDesc("banchat_enforce") && (cmd.equalsIgnoreCase("tell") || cmd.equalsIgnoreCase("m") || cmd.equalsIgnoreCase("r"))) {
+            if (ContainerManager.isContain(CommandName.BANCHAT, event.getPlayer().getName()) && ContainerManager.getCommandPlayer(CommandName.BANCHAT, event.getPlayer().getName()).isDesc("banchat_enforce") && (cmd.equalsIgnoreCase("tell") || cmd.equalsIgnoreCase("m") || cmd.equalsIgnoreCase("r") || cmd.equalsIgnoreCase("msg") || cmd.equalsIgnoreCase("reply"))) {
                 event.setCancelled(true);
             }
         }
