@@ -1,5 +1,7 @@
 package org.gbcraft.bang.commands.bean;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +15,9 @@ public class CommandPlayer {
         this.description = new ArrayList<>();
     }
 
-    public CommandPlayer(String playerName, String[] description){
+    public CommandPlayer(String playerName, String[] description) {
         this.playerName = playerName;
-        this.description = Arrays.asList(description);
+        this.description = new ArrayList<>(Arrays.asList(description));
     }
 
     public CommandPlayer(String playerName, List<String> description) {
@@ -29,11 +31,17 @@ public class CommandPlayer {
         this.description.add(description);
     }
 
-    public String getName(){
+    public String getName() {
         return playerName;
     }
 
-    public boolean isDesc(String description){
+    public void appendDesc(String desc) {
+        if (StringUtils.isNotBlank(desc) && !isDesc(desc)) {
+            this.description.add(desc);
+        }
+    }
+
+    public boolean isDesc(String description) {
         return this.description.contains(description);
     }
 }

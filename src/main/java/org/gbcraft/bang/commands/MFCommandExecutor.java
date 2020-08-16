@@ -40,6 +40,7 @@ public class MFCommandExecutor implements TabExecutor {
 
     private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help", "version"};
     private static final String[] backCommands = {"banchat", "dead", "fuck", "magic", "supajp", "freeze", "all"};
+    private static final String[] banChatCommands = {"all", "message", "logs", "replace"};
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
@@ -59,32 +60,42 @@ public class MFCommandExecutor implements TabExecutor {
             else {
                 List<String> res = null;
                 String backCommand = args[1];
-                CommandName backCommandName = CommandName.valueOf(backCommand.toUpperCase());
-                switch (backCommandName) {
-                    case FUCK:
-                        res = Arrays.stream(ContainerManager.getArray(CommandName.FUCK)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
-                        break;
-                    case MAGIC:
-                        res = Arrays.stream(ContainerManager.getArray(CommandName.MAGIC)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
-                        break;
-                    case SUPAJP:
-                        res = Arrays.stream(ContainerManager.getArray(CommandName.SUPAJP)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
-                        break;
-                    case FREEZE:
-                        res = Arrays.stream(ContainerManager.getArray(CommandName.FREEZE)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
-                        break;
-                    case DEAD:
-                        res = Arrays.stream(ContainerManager.getArray(CommandName.DEAD)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
-                        break;
-                    case BANCHAT:
-                        res = Arrays.stream(ContainerManager.getArray(CommandName.BANCHAT)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                CommandName backCommandName;
+                try {
+                    backCommandName = CommandName.valueOf(backCommand.toUpperCase());
                 }
+                catch (Exception e) {
+                    backCommandName = null;
+                }
+
+                if (null != backCommandName) {
+                    switch (backCommandName) {
+                        case FUCK:
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.FUCK)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            break;
+                        case MAGIC:
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.MAGIC)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            break;
+                        case SUPAJP:
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.SUPAJP)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            break;
+                        case FREEZE:
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.FREEZE)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            break;
+                        case DEAD:
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.DEAD)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            break;
+                        case BANCHAT:
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.BANCHAT)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                    }
+                }
+
                 return res;
             }
         }
         // /bang banchat(0) player(1) [](2)
         if (args.length == 3 && args[0].equalsIgnoreCase("banchat")) {
-            return Collections.singletonList("enforce");
+            return Arrays.stream(banChatCommands).filter(c -> c.startsWith(args[2].toLowerCase())).collect(Collectors.toList());
         }
 
         ArrayList<String> list = new ArrayList<>();

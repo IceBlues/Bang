@@ -25,8 +25,10 @@ public class ContainerManager {
 
     public static void prePut(Class<? extends MFCommand> clazz, CommandSender sender, OfflinePlayer player, String... desc) {
         Bang plugin = Bang.getPlugin(Bang.class);
-        PlayerContainer container = map.get(clazz);
+
         if (null != player) {
+            PlayerContainer container = map.get(clazz);
+
             if (!container.isContain(player.getName())) {
                 container.put(player.getName(), desc);
                 if (clazz == CommandName.FUCK.CommandClass()) {
@@ -40,6 +42,13 @@ public class ContainerManager {
         }
         else {
             plugin.sendMessage(sender, "info.player.no-player");
+        }
+    }
+
+    public static void appendDesc(CommandName name, String playerName, String desc) {
+        CommandPlayer player = getCommandPlayer(name, playerName);
+        if (null != player) {
+            player.appendDesc(desc);
         }
     }
 

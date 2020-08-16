@@ -17,8 +17,11 @@ org\gbcraft\bang\commands\bean\CommandPlayer.class
 org\gbcraft\bang\commands\MFCommand.class
 org\gbcraft\bang\util\FuckTaskUtil$1.class
 org\gbcraft\bang\commands\TeleportCommand.class
+org\gbcraft\bang\commands\bean\BanChatType.class
 org\gbcraft\bang\commands\ReloadCommand.class
+org\gbcraft\bang\util\JoinQuitFrequencyContainer.class
 org\gbcraft\bang\util\FuckTaskUtil.class
+org\gbcraft\bang\util\ChatFrequencyContainer.class
 org\gbcraft\bang\commands\DeadCommand.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
 org\gbcraft\bang\listener\EntityDeathListener$1.class

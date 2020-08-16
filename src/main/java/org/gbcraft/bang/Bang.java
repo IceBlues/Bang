@@ -13,6 +13,12 @@ import org.gbcraft.bang.exception.PluginNotFoundException;
 import org.gbcraft.bang.listener.ListenerManager;
 import org.gbcraft.bang.util.FuckTaskUtil;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Objects;
 
 public final class Bang extends JavaPlugin {
@@ -80,7 +86,7 @@ public final class Bang extends JavaPlugin {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig().getString(node))));
     }
 
-    /*public void logToFile(String msg) {
+    public void logToFile(String msg) {
         File dataFolder = getDataFolder();
         if (!dataFolder.exists()) {
             dataFolder.mkdir();
@@ -111,5 +117,5 @@ public final class Bang extends JavaPlugin {
         if(log.exists()){
             log.renameTo(saveLog);
         }
-    }*/
+    }
 }
