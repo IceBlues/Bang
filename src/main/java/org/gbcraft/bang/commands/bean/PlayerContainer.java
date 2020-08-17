@@ -39,7 +39,7 @@ public class PlayerContainer {
 
     }
 
-    public void put(String name) {
+    private void put(String name) {
         containers.put(name, new CommandPlayer(name));
     }
 

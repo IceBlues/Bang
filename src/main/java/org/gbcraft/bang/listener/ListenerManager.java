@@ -10,6 +10,5 @@ public class ListenerManager {
         Bukkit.getPluginManager().registerEvents(new PlayerCommandPreprocessListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), plugin);
         Bukkit.getPluginManager().registerEvents(new PlayerMoveListener(), plugin);
-        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), plugin);
     }
 }

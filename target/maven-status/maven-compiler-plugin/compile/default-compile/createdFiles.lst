@@ -4,7 +4,6 @@ org\gbcraft\bang\listener\ListenerManager.class
 org\gbcraft\bang\commands\VersionCommand.class
 org\gbcraft\bang\config\OfflinePlayersConfig.class
 org\gbcraft\bang\commands\MagicCommand.class
-org\gbcraft\bang\listener\PlayerQuitListener.class
 org\gbcraft\bang\commands\ListCommand.class
 org\gbcraft\bang\commands\BackCommand.class
 org\gbcraft\bang\commands\bean\PlayerContainer.class
@@ -17,11 +16,8 @@ org\gbcraft\bang\commands\bean\CommandPlayer.class
 org\gbcraft\bang\commands\MFCommand.class
 org\gbcraft\bang\util\FuckTaskUtil$1.class
 org\gbcraft\bang\commands\TeleportCommand.class
-org\gbcraft\bang\commands\bean\BanChatType.class
 org\gbcraft\bang\commands\ReloadCommand.class
-org\gbcraft\bang\util\JoinQuitFrequencyContainer.class
 org\gbcraft\bang\util\FuckTaskUtil.class
-org\gbcraft\bang\util\ChatFrequencyContainer.class
 org\gbcraft\bang\commands\DeadCommand.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
 org\gbcraft\bang\listener\EntityDeathListener$1.class

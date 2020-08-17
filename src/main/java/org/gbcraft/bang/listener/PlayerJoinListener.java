@@ -6,9 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.gbcraft.bang.commands.bean.BanChatType;
 import org.gbcraft.bang.commands.bean.CommandName;
-import org.gbcraft.bang.commands.bean.CommandPlayer;
 import org.gbcraft.bang.commands.bean.ContainerManager;
 import org.gbcraft.bang.config.OfflinePlayersConfig;
 
@@ -33,11 +31,6 @@ public class PlayerJoinListener implements Listener {
             player.setWalkSpeed(0.2f);
             player.setFlySpeed(0.1f);
             player.removePotionEffect(PotionEffectType.SATURATION);
-        }
-
-        CommandPlayer bcPlayer = ContainerManager.getCommandPlayer(CommandName.BANCHAT, player.getName());
-        if (null != bcPlayer && (bcPlayer.isDesc(BanChatType.LOGS.type()) || bcPlayer.isDesc(BanChatType.ALL.type()))) {
-            event.setJoinMessage("");
         }
     }
 

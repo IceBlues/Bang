@@ -20,19 +20,17 @@ public class MFCommandExecutor implements TabExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (args.length >= 1 && sender.hasPermission("bang.base")) {
-            if (sender.hasPermission("bang.base")) {
-                try {
-                    String commandName = Character.toString(args[0].charAt(0)).toUpperCase() + args[0].substring(1) + "Command";
-                    Class<MFCommand> clazz = (Class<MFCommand>) Class.forName("org.gbcraft.bang.commands." + commandName);
-                    MFCommand cmd = clazz.getConstructor(Bang.class, CommandSender.class, String[].class).newInstance(plugin, sender, args);
-                    return cmd.run();
-                }
-                catch (Exception e) {
-                }
+            try {
+                String commandName = Character.toString(args[0].charAt(0)).toUpperCase() + args[0].substring(1) + "Command";
+                Class<MFCommand> clazz = (Class<MFCommand>) Class.forName("org.gbcraft.bang.commands." + commandName);
+                MFCommand cmd = clazz.getConstructor(Bang.class, CommandSender.class, String[].class).newInstance(plugin, sender, args);
+                return cmd.run();
             }
-            else {
-                plugin.sendMessage(sender, "info.permission.no");
+            catch (Exception e) {
             }
+        }
+        else {
+            plugin.sendMessage(sender, "info.permission.no");
         }
 
         return false;

@@ -1,15 +1,7 @@
-# 禁言判定周期 (秒)
-msgCycle: 1
-# 周期内说话的次数 (私聊也算)
-msgTotal: 4
-# 登录登出周期
-logCycle: 10
-# 周期内登录登出的次数 (每执行 "登录 登出" 一对操作算一次)
-logTotal: 5
 #Help command
 helpCommand:
   - '&b[Bang] Help:'
-  - '&b/bang banchat&f <player> [all|message|logs|replace] - make a player cant chat'
+  - '&b/bang banchat&f <player> - make a player cant chat'
   - '&b/bang dead&f <player> - add a player to dead list'
   - '&b/bang fuck&f <player> - add a player mother to cemetery'
   - '&b/bang magic&f <player> - add a player to magic list'
@@ -25,7 +17,7 @@ helpCommand:
 warningMsg: ""
 info:
   command:
-    banchat: '&b/bang banchat&f <player> [all|message|logs|replace]'
+    banchat: '&b/bang banchat&f <player>'
     dead: '&b/bang dead&f <player>'
     fuck: '&b/bang fuck&f <player>'
     magic: '&b/bang magic&f <player>'
