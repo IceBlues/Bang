@@ -1,5 +1,6 @@
 package org.gbcraft.bang;
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -83,7 +84,16 @@ public final class Bang extends JavaPlugin {
     }
 
     public void sendMessage(CommandSender sender, String node) {
-        sender.sendMessage(ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(getConfig().getString(node))));
+        String msg = getConfig().getString(node);
+        if (StringUtils.isNotBlank(msg)) {
+            String[] subMsg = msg.split(";");
+            if (subMsg.length != 0) {
+                for (String s : subMsg) {
+                    sender.sendMessage(ChatColor.translateAlternateColorCodes('&', s));
+                }
+            }
+        }
+
     }
 
     public void logToFile(String msg) {
@@ -93,7 +103,7 @@ public final class Bang extends JavaPlugin {
         }
         File saveTo = new File(getDataFolder(), "log/log.txt");
         try {
-            if(!saveTo.getParentFile().exists()){
+            if (!saveTo.getParentFile().exists()) {
                 saveTo.getParentFile().mkdirs();
             }
             if (!saveTo.exists()) {
@@ -113,8 +123,8 @@ public final class Bang extends JavaPlugin {
 
     private void saveLog() {
         File log = new File(getDataFolder(), "log/log.txt");
-        File saveLog = new File(getDataFolder(), "log/log-"+new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date()) + ".txt");
-        if(log.exists()){
+        File saveLog = new File(getDataFolder(), "log/log-" + new SimpleDateFormat("yyyy-MM-dd_HH.mm.ss").format(new Date()) + ".txt");
+        if (log.exists()) {
             log.renameTo(saveLog);
         }
     }

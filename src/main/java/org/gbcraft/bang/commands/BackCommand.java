@@ -22,22 +22,11 @@ public class BackCommand extends MFCommand {
                 node = ContainerManager.remove(CommandName.FUCK, args[2]);
             }
             else if (args[1].equalsIgnoreCase(CommandName.MAGIC.name())) {
-                Player p = Bukkit.getPlayer(args[2]);
-                if (null != p) {
-                    for (PotionEffect effect : p.getActivePotionEffects()) {
-                        p.removePotionEffect(effect.getType());
-                    }
-                }
+                preRemoveMagic(args[2]);
                 node = ContainerManager.remove(CommandName.MAGIC, args[2]);
             }
             else if (args[1].equalsIgnoreCase(CommandName.SUPAJP.name())) {
-                Player p = Bukkit.getPlayer(args[2]);
-                if (null != p) {
-                    p.setAllowFlight(false);
-                    p.setWalkSpeed(0.2f);
-                    p.setFlySpeed(0.1f);
-                    p.removePotionEffect(PotionEffectType.SATURATION);
-                }
+                preRemoveSupajp(args[2]);
                 node = ContainerManager.remove(CommandName.SUPAJP, args[2]);
             }
             else if (args[1].equalsIgnoreCase(CommandName.FREEZE.name())) {
@@ -50,6 +39,8 @@ public class BackCommand extends MFCommand {
                 node = ContainerManager.remove(CommandName.BANCHAT, args[2]);
             }
             else if (args[1].equalsIgnoreCase("all")) {
+                preRemoveMagic(args[2]);
+                preRemoveSupajp(args[2]);
                 ContainerManager.removeAll(args[2]);
                 node = "info.remove.success";
             }
@@ -64,5 +55,24 @@ public class BackCommand extends MFCommand {
         }
 
         return true;
+    }
+
+    private void preRemoveMagic(String name) {
+        Player p = Bukkit.getPlayer(name);
+        if (null != p) {
+            for (PotionEffect effect : p.getActivePotionEffects()) {
+                p.removePotionEffect(effect.getType());
+            }
+        }
+    }
+
+    private void preRemoveSupajp(String name) {
+        Player p = Bukkit.getPlayer(name);
+        if (null != p) {
+            p.setAllowFlight(false);
+            p.setWalkSpeed(0.2f);
+            p.setFlySpeed(0.1f);
+            p.removePotionEffect(PotionEffectType.SATURATION);
+        }
     }
 }
