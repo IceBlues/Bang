@@ -10,6 +10,7 @@ helpCommand:
   - '&b/bang uglyface&f <player> - show elder guardian ugly face and warning message'
   - '&b/bang teleport <player>|<x,z,y>|<player1> [player2]|<player> <x,z,y>'
   - '&b/bang freeze&f <player> - freeze a player, cant move'
+  - '&b/bang observe&f - change game mode from survival and spectator'
   - '&b/bang back&f <fuck|magic|bless|supajp|all> <player> - clear all bang effect'
   - '&b/bang list&f - lists the mother fucker players'
   - '&b/bang reload&f - reload bang config file'
@@ -26,6 +27,7 @@ info:
     uglyface: '&b/bang uglyface <player>'
     teleport: '&b/bang teleport <player>|<x,z,y>|<player1> [player2]|<player> <x,z,y>'
     freeze: '&b/bang freeze <player>'
+    observe: '&b/bang observe'
     back: '&b/bang back&f <fuck|magic|bless|supajp|freeze|all> <player>'
     list: '&b/bang list'
     reload: '&b/bang reload'
@@ -37,6 +39,10 @@ info:
     success: 'Remove success!'
     no-online: 'Player has been removed, and relevant effect will be removed when next online'
     no-player: 'Player not in list'
+  observe:
+    survival: '&a[Bang] 冰魔法的力量消失了...'
+    spectator: '&a[Bang] 念诵起了冰魔法的咒语, 随后悄然融入了天地之间'
+    wrong: '&a[Bang] 似乎受到了一些神秘力量的阻碍(仅在生存或观察者模式时才能使用)'
   player:
     no-player: 'The player has never existed on the server'
     no-found: 'Player not found'

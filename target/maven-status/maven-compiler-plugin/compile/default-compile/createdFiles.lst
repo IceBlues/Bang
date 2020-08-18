@@ -7,6 +7,7 @@ org\gbcraft\bang\commands\MagicCommand.class
 org\gbcraft\bang\commands\ListCommand.class
 org\gbcraft\bang\commands\BackCommand.class
 org\gbcraft\bang\commands\bean\PlayerContainer.class
+org\gbcraft\bang\commands\ObserveCommand.class
 org\gbcraft\bang\commands\SupajpCommand.class
 org\gbcraft\bang\commands\MFCommandExecutor$1.class
 org\gbcraft\bang\Bang.class
