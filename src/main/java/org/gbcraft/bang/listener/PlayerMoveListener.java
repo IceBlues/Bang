@@ -9,6 +9,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.gbcraft.bang.commands.bean.CommandName;
 import org.gbcraft.bang.commands.bean.ContainerManager;
+import org.gbcraft.bang.particle.EffectType;
+import org.gbcraft.bang.particle.FireBootsEffect;
+import org.gbcraft.bang.particle.ParticleManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,10 @@ public class PlayerMoveListener implements Listener {
         }
         if (isFreeze) {
             event.setCancelled(true);
+        }
+
+        if (ParticleManager.hasEffect(player.getUniqueId(), EffectType.FIRE_BOOTS)) {
+            new FireBootsEffect().doIt(player);
         }
     }
 

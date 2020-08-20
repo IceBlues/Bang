@@ -7,7 +7,10 @@ import org.gbcraft.bang.Bang;
 import org.gbcraft.bang.commands.bean.CommandName;
 import org.gbcraft.bang.commands.bean.ContainerManager;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class MFCommandExecutor implements TabExecutor {
@@ -36,7 +39,7 @@ public class MFCommandExecutor implements TabExecutor {
         return false;
     }
 
-    private static final String[] subCommands = {"banchat", "dead", "fuck", "magic", "observe", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help", "version"};
+    private static final String[] subCommands = {"banchat", "dead", "doubleRocketPunch", "fuck", "magic", "observe", "supajp", "uglyface", "freeze", "back", "teleport", "list", "reload", "help", "version"};
     private static final String[] backCommands = {"banchat", "dead", "fuck", "magic", "supajp", "freeze", "all"};
     private static final String[] banChatCommands = {"all", "message", "logs", "replace"};
 

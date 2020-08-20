@@ -4,7 +4,10 @@ org\gbcraft\bang\listener\ListenerManager.class
 org\gbcraft\bang\commands\VersionCommand.class
 org\gbcraft\bang\config\OfflinePlayersConfig.class
 org\gbcraft\bang\commands\MagicCommand.class
+org\gbcraft\bang\particle\ParticleManager.class
+org\gbcraft\bang\listener\PlayerQuitListener.class
 org\gbcraft\bang\commands\ListCommand.class
+org\gbcraft\bang\particle\StarRingEffect$1.class
 org\gbcraft\bang\commands\BackCommand.class
 org\gbcraft\bang\commands\bean\PlayerContainer.class
 org\gbcraft\bang\commands\ObserveCommand.class
@@ -17,11 +20,14 @@ org\gbcraft\bang\commands\bean\CommandPlayer.class
 org\gbcraft\bang\commands\MFCommand.class
 org\gbcraft\bang\util\FuckTaskUtil$1.class
 org\gbcraft\bang\commands\TeleportCommand.class
+org\gbcraft\bang\particle\FireBootsEffect.class
 org\gbcraft\bang\commands\ReloadCommand.class
+org\gbcraft\bang\particle\Effect.class
 org\gbcraft\bang\util\FuckTaskUtil.class
 org\gbcraft\bang\commands\DeadCommand.class
 org\gbcraft\bang\commands\MFCommandExecutor.class
-org\gbcraft\bang\listener\EntityDeathListener$1.class
+org\gbcraft\bang\particle\StarRingEffect.class
+org\gbcraft\bang\particle\EffectType.class
 org\gbcraft\bang\commands\BanchatCommand.class
 org\gbcraft\bang\listener\PlayerChatListener.class
 org\gbcraft\bang\commands\bean\ContainerManager.class
@@ -29,6 +35,7 @@ org\gbcraft\bang\listener\PlayerCommandPreprocessListener.class
 org\gbcraft\bang\exception\PluginNotFoundException.class
 org\gbcraft\bang\listener\PlayerJoinListener.class
 org\gbcraft\bang\util\ProtocolUtil.class
+org\gbcraft\bang\commands\DoubleRocketPunchCommand.class
 org\gbcraft\bang\commands\FuckCommand.class
 org\gbcraft\bang\commands\HelpCommand.class
 org\gbcraft\bang\commands\bean\CommandName.class
