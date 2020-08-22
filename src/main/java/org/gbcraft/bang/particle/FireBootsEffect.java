@@ -9,6 +9,7 @@ public class FireBootsEffect extends Effect {
     @Override
     public void doIt(Player player) {
         if (null == particle) {
+            player.setFallDistance(500);
             particle = new ParticleManager(player.getUniqueId(), EffectType.FIRE_BOOTS, task);
         }
         Random r = new Random();
