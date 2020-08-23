@@ -49,13 +49,13 @@ public class MFCommandExecutor implements TabExecutor {
             return null;
 
         if (args.length == 1) {
-            return Arrays.stream(subCommands).filter(c -> c.startsWith(args[0])).collect(Collectors.toList());
+            return Arrays.stream(subCommands).filter(c -> c.toLowerCase().startsWith(args[0].toLowerCase())).collect(Collectors.toList());
         }
         //if have sub command and equals back
         if (args.length > 0 && args[0].equalsIgnoreCase("back")) {
             //if want input back command name
             if (args.length == 2) {
-                return Arrays.stream(backCommands).filter(c -> c.startsWith(args[1])).collect(Collectors.toList());
+                return Arrays.stream(backCommands).filter(c -> c.toLowerCase().startsWith(args[1].toLowerCase())).collect(Collectors.toList());
             }
             //bigger than 2
             else {
@@ -72,22 +72,22 @@ public class MFCommandExecutor implements TabExecutor {
                 if (null != backCommandName) {
                     switch (backCommandName) {
                         case FUCK:
-                            res = Arrays.stream(ContainerManager.getArray(CommandName.FUCK)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.FUCK)).filter(p -> p.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                             break;
                         case MAGIC:
-                            res = Arrays.stream(ContainerManager.getArray(CommandName.MAGIC)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.MAGIC)).filter(p -> p.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                             break;
                         case SUPAJP:
-                            res = Arrays.stream(ContainerManager.getArray(CommandName.SUPAJP)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.SUPAJP)).filter(p -> p.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                             break;
                         case FREEZE:
-                            res = Arrays.stream(ContainerManager.getArray(CommandName.FREEZE)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.FREEZE)).filter(p -> p.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                             break;
                         case DEAD:
-                            res = Arrays.stream(ContainerManager.getArray(CommandName.DEAD)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.DEAD)).filter(p -> p.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                             break;
                         case BANCHAT:
-                            res = Arrays.stream(ContainerManager.getArray(CommandName.BANCHAT)).filter(p -> p.startsWith(args[2])).collect(Collectors.toList());
+                            res = Arrays.stream(ContainerManager.getArray(CommandName.BANCHAT)).filter(p -> p.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
                     }
                 }
 
@@ -96,11 +96,11 @@ public class MFCommandExecutor implements TabExecutor {
         }
         // /bang banchat(0) player(1) [](2)
         if (args.length == 3 && args[0].equalsIgnoreCase("banchat")) {
-            return Arrays.stream(banChatCommands).filter(c -> c.startsWith(args[2].toLowerCase())).collect(Collectors.toList());
+            return Arrays.stream(banChatCommands).filter(c -> c.toLowerCase().startsWith(args[2].toLowerCase())).collect(Collectors.toList());
         }
 
         ArrayList<String> list = new ArrayList<>();
         plugin.getServer().getOnlinePlayers().forEach(p -> list.add(p.getName()));
-        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.startsWith(args[args.length - 1])).collect(Collectors.toList());
+        return Arrays.stream(list.toArray(new String[0])).filter(p -> p.toLowerCase().startsWith(args[args.length - 1].toLowerCase())).collect(Collectors.toList());
     }
 }
