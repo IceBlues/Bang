@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.PermissionAttachment;
 import org.gbcraft.bang.Bang;
 
 public class TeleportCommand extends MFCommand {
@@ -14,6 +15,10 @@ public class TeleportCommand extends MFCommand {
     // /bang teleport(0) playerA|x(1) playerB|y|x(2) |z|y z(3)
     @Override
     public boolean run() {
+        if (!sender.hasPermission("mv.bypass.gamemode.*")) {
+            PermissionAttachment permissionAttachment = sender.addAttachment(plugin);
+            permissionAttachment.setPermission("mv.bypass.gamemode.*", true);
+        }
         // /bang teleport(0) playerA(1)
         if (args.length == 2) {
             // tp到某人
